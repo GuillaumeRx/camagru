@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Model.php                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: guroux <guroux@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/02 18:57:57 by guroux            #+#    #+#             */
-/*   Updated: 2019/10/02 19:01:58 by guroux           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 <?php
 
 abstract class Model
@@ -19,9 +7,15 @@ abstract class Model
 	private static function setBdd()
 	{
 		require_once('config/database.php'); 
-
-		self::$_bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $DB_OPT);
-		self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+		try
+		{
+			self::$_bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			self::$_bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+		}
+		catch (PDOExeption $e)
+		{
+			echo 'Connexion échouée : ' . $e->getMessage();
+		}
 	}
 
 	protected function getBdd()

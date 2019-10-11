@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Router.php                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: guroux <guroux@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/02 18:05:20 by guroux            #+#    #+#             */
-/*   Updated: 2019/10/02 18:19:26 by guroux           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 <?php
 
 class Router
@@ -46,7 +34,7 @@ class Router
 			else
 			{
 				require_once('controllers/ControllerAccueil.php');
-				$this->_ctrl = new ControllerAcceuil($url);
+				$this->_ctrl = new ControllerAccueil($url);
 			}
 		}
 		catch(Exeption $e)
