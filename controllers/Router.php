@@ -1,4 +1,5 @@
 <?php
+require_once('views/View.php');
 
 class Router
 {
@@ -29,7 +30,7 @@ class Router
 					$this->_ctrl = new $controllerClass($url);
 				}
 				else
-					throw new Exeption('Page introuvable');
+					throw new Exception('Page introuvable');
 			}
 			else
 			{
@@ -37,10 +38,11 @@ class Router
 				$this->_ctrl = new ControllerAccueil($url);
 			}
 		}
-		catch(Exeption $e)
+		catch(Exception $e)
 		{
-			$errMsg = $e->getMessage();
-			require_once('views/viewErr.php');
+			$errorMsg = $e->getMessage();
+			$this->_view = new View('Error');
+			$this->_view->generate(array('errorMsg' => $errorMsg));
 		}
 	}
 }

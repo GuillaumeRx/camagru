@@ -1,4 +1,5 @@
 <?php
+require_once('views/View.php');
 
 class ControllerAccueil
 {
@@ -18,7 +19,8 @@ class ControllerAccueil
 		$this->_pictureManager = new PictureManager;
 		$pictures = $this->_pictureManager->getPictures();
 
-		require_once('views/viewAccueil.php');
+		$this->_view = new View('Accueil');
+		$this->_view->generate(array('pictures' => $pictures));
 	}
 }
 
