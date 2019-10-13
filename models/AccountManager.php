@@ -38,6 +38,7 @@ class AccountManager extends Model
 	{
 		$username = trim($username);
 		$password = trim($password);
+		$email = trim($email);
 
 		if (!$this->isNameValid($username))
 			throw new Exception('Invalid Username');
@@ -61,6 +62,44 @@ class AccountManager extends Model
 		{
 			throw new Exception('Query error');
 		}
+	}
+
+	public function login(string $username, string $password): bool
+	{
+		$email = trim($email);
+		$password = trim($password);
+
+		if (!$this->isEmailValid($email))
+			return false;
+		if (!$this->isPasswdValid($password))
+			return false;
+		
+		$values = array(':email' => $email);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE (email = :email)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		
+		if (is_array($data))
+		{
+			if (password_verify($password, $data['password']))
+			{
+				$account = new Account($data);
+				$account->setAuth(true);
+
+				$this->registerLoginSession();
+				return true;
+				$req->closeCursor();
+			}
+		}
+		return false;
 	}
 }
 
