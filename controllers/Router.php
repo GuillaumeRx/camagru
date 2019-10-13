@@ -8,6 +8,7 @@ class Router
 
 	public function routeReq()
 	{
+		session_start();
 		try
 		{
 			spl_autoload_register(function($class) {

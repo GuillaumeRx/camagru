@@ -5,6 +5,7 @@ class Account
 	private $_id;
 	private $_username;
 	private $_email;
+	private $_authenticated;
 
 	public function __construct(array $data)
 	{
@@ -39,6 +40,11 @@ class Account
 		if (is_string($email))
 			$this->_email = $email;
 	}
+	public function setAuth($bool)
+	{
+		if (is_bool($bool))
+			$this->_authenticated = $bool;
+	}
 
 	public function id()
 	{
@@ -51,6 +57,10 @@ class Account
 	public function email()
 	{
 		return $this->_email;
+	}
+	public function authenticated()
+	{
+		return $this->_authenticated;
 	}
 }
 
