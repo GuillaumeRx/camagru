@@ -34,6 +34,8 @@ class AccountManager extends Model
 		$req->closeCursor();
 	}
 
+	private function registerLoginSession()
+
 	public function register(string $username, string $password, string $email)
 	{
 		$username = trim($username);
