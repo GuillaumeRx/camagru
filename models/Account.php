@@ -58,7 +58,7 @@ class Account
 	{
 		return $this->_email;
 	}
-	public function authenticated()
+	public function isAuthenticated()
 	{
 		return $this->_authenticated;
 	}
