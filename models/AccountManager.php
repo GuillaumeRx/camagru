@@ -33,6 +33,28 @@ class AccountManager extends Model
 		return $id;
 		$req->closeCursor();
 	}
+	public function getIdFromUsername($username)
+	{
+		$values = array(':username' => $username);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT id FROM accounts WHERE (username = :username)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		if (is_array($data))
+			$id = intval($data['id'], 10);
+		return $id;
+		$req->closeCursor();
+	}
+	public function isIdValid($id)
+	{
+		return (($id >= 1) && ($id <= 1000000)) ? true : false;
+	}
 
 	public function registerLoginSession($id)
 	{
@@ -114,10 +136,10 @@ class AccountManager extends Model
 		$password = trim($password);
 
 		if (!$this->isEmailValid($email))
-			return NULL;
+			throw new Exception('Invalid email');
 		if (!$this->isPasswdValid($password))
-			return NULL;
-		
+		throw new Exception('Invalid password');
+
 		$values = array(':email' => $email);
 		try
 		{
@@ -142,11 +164,55 @@ class AccountManager extends Model
 		return false;
 	}
 
+	public function editAccount($id, $username, $email, $password)
+	{
+		$username = trim($username);
+		$password = trim($password);
+
+		if (!$this->isIdValid($id))
+			throw new Exception('Invald account ID');
+		if (!$this->isUsernameValid($username))
+			throw new Exception('Invalid username');
+		if (!$this->isEmailValid($email))
+			throw new Exception('Invalid email');
+		if (!$this->isPasswdValid($password))
+			throw new Exception('Invalid password');
+		
+		$idFromEmail = $this->getIdFromEmail($email);
+		if (!is_null($idFromEmail) && $idFromEmail != $id)
+			throw new Exception('Email already used');
+
+		$idFromName = $this->getIdFromUsername($username);
+		if (!is_null($idFromName) && $idFromName != $id)
+			throw new Exception('Username already used');
+
+		$hash = password_hash($password, PASSWORD_BCRYPT);
+
+		$values = array(':username'=> $username, ':email' => $emai, ':password' => $hash);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, password = :password WHERE id = :id');
+			$req->execute($values);
+			$req->prepare('SELECT * FROM accounts WHERE id = :id');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+
+		return new Account($data);
+		$req->closeCursor();
+	}
+
 	public function logout()
 	{
 		if (session_status() == PHP_SESSION_ACTIVE)
 		{
-			$values = array(':id', session_id());
+			$values = array(':id' => session_id());
 
 			try
 			{
@@ -157,6 +223,7 @@ class AccountManager extends Model
 			{
 				throw new Exception('Query error');
 			}
+			session_destroy();
 			$req->closeCursor();
 		}
 	}

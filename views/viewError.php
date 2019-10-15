@@ -1,2 +1,2 @@
 <?php $this->_t = 'Erreur'; ?>
-<?= $errorMsg ?>
+<h1><?= $errorMsg ?></h1>
