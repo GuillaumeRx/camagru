@@ -11,36 +11,31 @@ class ControllerAccount
 		if (isset($url) && count($url) > 1)
 			throw new Exception('Page Introuvable');
 		else
-			$this->login();
+			$this->account();
 	}
 
-	private function login()
+	private function account()
 	{
-
-		if (isset($this->_accountManager) && $this->_accountManager->isAuthenticated())
+		$this->_accountManager = new AccountManager;
+		if (isset($_POST['email']) && isset($_POST['password']))
 		{
-			$this->_view = new View('Account');
-			$this->_view->generate(array('account' => $account));
-		}
-		else if (session_status() == PHP_SESSION_ACTIVE)
-		{
-			$this->_accountManager = new accountManager;
-			$account = $this->_accountManager->sessionlogin();
-			$this->_view = new View('Account');
-			$this->_view->generate(array('account' => $account));
-		}
-		else if (isset($_POST['email']) && isset($_POST['password']))
-		{
-			
-			$this->_accountManager = new accountManager;
 			if ($account = $this->_accountManager->login($_POST['email'], $_POST['password']))
 			{
-				$this->_accountManager->registerLoginSession($account->id());
+				$this->_accountManager->RegisterLoginSession($account->id());
 				$this->_view = new View('Account');
 				$this->_view->generate(array('account' => $account));
 			}
-			$this->_view = new View('Login');
-			$this->_view->generate(array());
+			else
+			{
+				$this->_view = new View('Login');
+				$this->_view->generate(array());
+			}
+
+		}
+		else if ($account = $this->_accountManager->sessionLogin())
+		{
+			$this->_view = new View('Account');
+			$this->_view->generate(array('account' => $account));
 		}
 		else
 		{

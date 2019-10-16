@@ -25,6 +25,8 @@
 			</a>
 		</div>
 	</div>
-	<?= $content ?>
+	<div>
+		<?= $content ?>
+	</div>
 </body>
 </html>

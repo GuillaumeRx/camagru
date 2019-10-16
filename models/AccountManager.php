@@ -80,7 +80,6 @@ class AccountManager extends Model
 		if (session_status() == PHP_SESSION_ACTIVE)
 		{
 			$values = array('id' => session_id());
-
 			try
 			{
 				$req = $this->getBdd()->prepare('SELECT * FROM account_sessions, accounts WHERE (account_sessions.id = :id) ' . 
@@ -161,7 +160,7 @@ class AccountManager extends Model
 				$req->closeCursor();
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public function editAccount($id, $username, $email, $password)

@@ -1,8 +1,6 @@
 <?php
 require_once('views/View.php');
 
-$account = NULL;
-
 class Router
 {
 	private $_ctrl;
