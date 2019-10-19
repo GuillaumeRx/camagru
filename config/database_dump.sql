@@ -61,6 +61,21 @@ CREATE TABLE `pictures` (
   `url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `accounts`
+--
+
+CREATE TABLE `pictures` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `account_id` int(10) UNSIGNED NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 --
 -- Index pour les tables déchargées
 --
@@ -87,6 +102,16 @@ ALTER TABLE `account_sessions`
 -- AUTO_INCREMENT pour la table `accounts`
 --
 ALTER TABLE `accounts`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+--
+-- Index pour la table `accounts`
+--
+ALTER TABLE `pictures`
+  ADD PRIMARY KEY (`id`),
+
+  ALTER TABLE `pictures`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 

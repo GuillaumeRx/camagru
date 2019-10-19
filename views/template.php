@@ -11,6 +11,8 @@
 <body>
 	<div id="nav">
 		<div class="logo">
+			<i class="fab fa-instagram fa-lg"></i>
+			<div class="separator"></div>			
 			<a href="/">Camagru</a>
 		</div>
 		<div>
@@ -20,13 +22,16 @@
 			</div>
 		</div>
 		<div class="user">
-			<a href="#">
+			<a href="/account">
 				<i class="far fa-user fa-lg"></i>
 			</a>
 		</div>
 	</div>
-	<div>
+	<div id="content">
 		<?= $content ?>
+	</div>
+	<div id="footer">
+	<p>Made with ❤️ by <a href="https://guillaumerx.fr" target="_blank">guroux</a></p>
 	</div>
 </body>
 </html>

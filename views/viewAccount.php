@@ -4,3 +4,4 @@
 <input value="<?= $account->email() ?>" type="text" />
 <input type="text" />
 <form>
+<a href="/logout">Logout</a>

@@ -3,7 +3,8 @@
 class Picture
 {
 	private $_id;
-	private $_userId;
+	private $_account_id;
+	private $_username;
 	private $_date;
 	private $_url;
 
@@ -30,12 +31,17 @@ class Picture
 		if ($id > 0)
 			$this->_id = $id;
 	}
-	public function setUserId($userId)
+	public function setAccount_id($account_id)
 	{
-		$userId = (int)$id;
+		$account_id = (int)$account_id;
 
-		if ($userId > 0)
-			$this->_userId = $userId;
+		if ($account_id > 0)
+			$this->_account_id = $account_id;
+	}
+	public function setUsername($username)
+	{
+		if (is_string($username))
+			$this->_username = $username;
 	}
 	public function setDate($date)
 	{
@@ -51,9 +57,13 @@ class Picture
 	{
 		return $this->_id;
 	}
-	public function userId()
+	public function accountId()
 	{
-		return $this->_userId;
+		return $this->_account_id;
+	}
+	public function username()
+	{
+		return $this->_username;
 	}
 	public function date()
 	{

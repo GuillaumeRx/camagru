@@ -4,6 +4,7 @@ require_once('views/View.php');
 class ControllerAccueil
 {
 	private $_pictureManager;
+	private $_accountManager;
 	private $_view;
 
 	public function __construct($url)
