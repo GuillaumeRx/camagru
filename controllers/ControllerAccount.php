@@ -17,31 +17,13 @@ class ControllerAccount
 	private function account()
 	{
 		$this->_accountManager = new AccountManager;
-		if (isset($_POST['email']) && isset($_POST['password']))
-		{
-			if ($account = $this->_accountManager->login($_POST['email'], $_POST['password']))
-			{
-				$this->_accountManager->RegisterLoginSession($account->id());
-				$this->_view = new View('Account');
-				$this->_view->generate(array('account' => $account));
-			}
-			else
-			{
-				$this->_view = new View('Login');
-				$this->_view->generate(array());
-			}
-
-		}
-		else if ($account = $this->_accountManager->sessionLogin())
+		if ($account = $this->_accountManager->sessionLogin())
 		{
 			$this->_view = new View('Account');
 			$this->_view->generate(array('account' => $account));
 		}
 		else
-		{
-			$this->_view = new View('Login');
-			$this->_view->generate(array());
-		}
+			header('Location: /login');
 	}
 }
 

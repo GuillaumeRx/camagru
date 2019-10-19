@@ -1,11 +1,19 @@
 <?php $this->_t = 'Login'; ?>
 <div id="login">
-	<div class="login-box">
-		<form method="POST" action="/account">
-			<input type="text" placeholder="email" id="email" name="email"/>
-			<input type="password" placeholder="password" id="password" name="password"/>
-			<button type="submit">Submit</button>
+	<div class="form-box">
+		<h2>Connexion</h2>
+		<form method="POST" action="/login">
+		<span>
+			<label for="email">Adresse e-mail</label>
+			<input type="text" placeholder="mail@exemple.com" id="email" name="email"/>
+		</span>
+		<span>
+			<label for="password">Mot de passe</label>	
+			<input type="password" placeholder="Ça c'est un secret" id="password" name="password"/>
+		</span>
+			<button type="submit">Envoyer</button>
 		</form>
-		<a href="/register">Register</a>
+		<p><?= $error ?></p>
+		<p>Pas encore de compte ? <a href="/register">Incription</a></p>
 	</div>
 </div>

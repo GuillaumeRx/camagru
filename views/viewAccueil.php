@@ -4,7 +4,7 @@ foreach($pictures as $picture): ?>
 <div class="post">
 	<div class="user">
 		<img src="http://via.placeholder.com/100" />
-		<p><?= $picture->username() ?></p>
+		<a href="/user/<?= $picture->username() ?>"><?= $picture->username() ?></a>
 	</div>
 	<img class="content" src="<?= $picture->url() ?>"/>
 	<div class="bottom">	

@@ -18,8 +18,7 @@ class ControllerLogout
 	{
 		$this->_accountManager = new AccountManager;
 		$this->_accountManager->logout();
-		$this->_view = new View('Logout');
-		$this->_view->generate(array());
+		header('Location: /login');
 	}
 }
 
