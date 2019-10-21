@@ -16,7 +16,7 @@ class PictureManager extends Model
 			}
 			catch (PDOException $e)
 			{
-				throw new Exception('Query error');
+				throw new Exception('Query error');;
 			}
 			$data = $req->fetch(PDO::FETCH_ASSOC);
 			$account = new Account($data);
@@ -24,6 +24,27 @@ class PictureManager extends Model
 			$req->closeCursor();
 		}
 		return $pictures;
+	}
+
+	public function getAccountPictures($account_id)
+	{
+		$pictures = array();
+		$values = array(':account_id' => $account_id);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM pictures WHERE (account_id = :account_id) ORDER BY date DESC');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		while ($data = $req->fetch(PDO::FETCH_ASSOC))
+		{
+			$pictures[] = new Picture($data);
+		 }
+		 return $pictures;
+		 $req->closeCursor();
 	}
 }
 

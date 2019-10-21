@@ -56,6 +56,25 @@ class AccountManager extends Model
 		return (($id >= 1) && ($id <= 1000000)) ? true : false;
 	}
 
+	public function getUserByUsername($username)
+	{
+		$values = array(':username' => $username);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE (username = :username)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		if (is_array($data))
+			return new Account($data);
+		return null;
+		$req->closeCursor();
+	}
+
 	public function registerLoginSession($id)
 	{
 		if (session_status() == PHP_SESSION_ACTIVE)
