@@ -2,7 +2,7 @@
 <div id="account">
 	<div class="form-box">
 		<div class="profile-header">
-			<img src="http://via.placeholder.com/100"/>
+			<img src="<?= ($account->pic()) ? $account->pic() : 'http://via.placeholder.com/100' ?>"/>
 			<div class="username">
 				<p><?= $account->username() ?></p>
 				<a href="#">Modifier la photo de profil</a>
@@ -18,11 +18,18 @@
 			<input type="text" placeholder="Tom e-mail" value="<?= $account->email() ?>" id="email" name="email"/>
 		</span>
 		<span>
+			<label for="bio">Bio</label>	
+			<textarea id="bio" name="bio">
+				<?= $account->bio() ?>
+			</textarea>		
+		</span>
+		<span>
 		<label for="password">Mot de passe</label>	
 			<input type="password" placeholder="Ça c'est un secret" id="password" name="password"/>
-		</span>	
+		</span>
 		<button type="submit">Envoyer</button>
-		</form>
 		<a href="/logout">Déconnexion</a>
+		</form>
+		
 	</div>
 </div>

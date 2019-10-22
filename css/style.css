@@ -9,7 +9,7 @@ a
 {
 	text-decoration: none;
 	color: #262626;
-	font-weight: bold;
+	font-weight: 600;
 	transition: all .3s;
 }
 
@@ -31,6 +31,17 @@ body
 }
 
 input
+{
+	border: 1px solid #efefef;
+	font-size: 14px;
+	border-radius: 3px;
+	outline: 0;
+	padding: 0 10px;
+	background: white;
+	color: #262626;
+}
+
+textarea
 {
 	border: 1px solid #efefef;
 	font-size: 14px;
@@ -179,23 +190,23 @@ button:active
 
 #login
 {
-	align-self: stretch;
 	display: flex;
 	justify-content: center;
+	height: 500px;
 }
 
 #register
 {
-	align-self: stretch;
 	display: flex;
 	justify-content: center;
+	height: 500px;
 }
 
 .form-box
 {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	background-color: #fff;
 	border: 1px solid #dbdbdb;
@@ -206,13 +217,18 @@ button:active
 	margin: 60px auto 0;
 }
 
+.form-box a
+{
+	color: #3897f0;
+}
+
 .form-box form
 {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	height: 200px;
+	height: 100%;
 	width: 100%;
 }
 
@@ -220,6 +236,12 @@ button:active
 {
 	width: 300px;
 	height: 32px;
+}
+
+.form-box textarea
+{
+	width: 300px;
+	height: 70px;
 }
 
 .form-box label
@@ -296,7 +318,7 @@ button:active
 
 #account
 {
-	align-self: stretch;
+	min-height: 600px;
 	display: flex;
 	justify-content: center;
 }
@@ -329,7 +351,6 @@ button:active
 #account .form-box .profile-header .username a
 {
 	color: #3897f0;
-	font-weight: normal;
 
 }
 

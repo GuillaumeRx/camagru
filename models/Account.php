@@ -4,6 +4,8 @@ class Account
 {
 	private $_id;
 	private $_username;
+	private $_pic;
+	private $_bio;
 	private $_email;
 	private $_authenticated;
 
@@ -35,6 +37,16 @@ class Account
 		if (is_string($username))
 			$this->_username = $username;
 	}
+	public function setPic($pic)
+	{
+		if (is_string($pic))
+			$this->_pic = $pic;
+	}
+	public function setBio($bio)
+	{
+		if (is_string($bio))
+			$this->_bio = $bio;
+	}
 	public function setEmail($email)
 	{
 		if (is_string($email))
@@ -53,6 +65,14 @@ class Account
 	public function username()
 	{
 		return $this->_username;
+	}
+	public function pic()
+	{
+		return $this->_pic;
+	}
+	public function bio()
+	{
+		return $this->_bio;
 	}
 	public function email()
 	{
