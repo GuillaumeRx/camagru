@@ -11,6 +11,7 @@ class ControllerAccueil
 	{
 		if (isset($url) && count($url) > 1)
 			throw new Exception('Page Introuvable');
+		
 		else
 			$this->pictures();
 	}
@@ -18,6 +19,9 @@ class ControllerAccueil
 	private function pictures()
 	{
 		$this->_pictureManager = new PictureManager;
+		$this->_accountManager = new AccountManager;
+		if (isset($_POST["picture_id"]) && $account = $this->_accountManager->sessionLogin())
+			$this->_pictureManager->likePicture($_POST["picture_id"], $account->id());
 		$pictures = $this->_pictureManager->getPictures();
 
 		$this->_view = new View('Accueil');

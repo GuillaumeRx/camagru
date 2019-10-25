@@ -1,14 +1,10 @@
 <?php
 
-class Picture
+class Like
 {
-	private $_id;
 	private $_account_id;
+	private $_picture_id;
 	private $_username;
-	private $_date;
-	private $_url;
-	private $_likes;
-	private $_comments;
 
 	public function __construct(array $data)
 	{
@@ -26,13 +22,6 @@ class Picture
 		}
 	}
 
-	public function setId($id)
-	{
-		$id = (int)$id;
-
-		if ($id > 0)
-			$this->_id = $id;
-	}
 	public function setAccount_id($account_id)
 	{
 		$account_id = (int)$account_id;
@@ -40,49 +29,30 @@ class Picture
 		if ($account_id > 0)
 			$this->_account_id = $account_id;
 	}
+	public function setPicture_id($picture_id)
+	{
+		$picture_id = (int)$picture_id;
+
+		if ($picture_id > 0)
+			$this->_picture_id = $picture_id;
+	}
 	public function setUsername($username)
 	{
 		if (is_string($username))
 			$this->_username = $username;
 	}
-	public function setDate($date)
-	{
-		$this->_date = $date;
-	}
-	public function setUrl($url)
-	{
-		if (is_string($url))
-			$this->_url = $url;
-	}
-	public function setLikes($likes)
-	{
-		if (is_array($likes))
-			$this->_likes = $likes;
-	}
 
-	public function id()
+	public function picture_id()
 	{
-		return $this->_id;
+		return $this->_picture_id;
 	}
-	public function accountId()
+	public function account_id()
 	{
 		return $this->_account_id;
 	}
 	public function username()
 	{
 		return $this->_username;
-	}
-	public function date()
-	{
-		return $this->_date;
-	}
-	public function url()
-	{
-		return $this->_url;
-	}
-	public function likes()
-	{
-		return $this->_likes;
 	}
 }
 
