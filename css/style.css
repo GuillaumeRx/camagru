@@ -316,6 +316,13 @@ button:active
 	padding: 15px;
 }
 
+#gallery .post .bottom .likes-cont
+{
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+}
+
 #account
 {
 	min-height: 600px;

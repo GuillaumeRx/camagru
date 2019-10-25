@@ -9,9 +9,18 @@ foreach($pictures as $picture): ?>
 	<img class="content" src="<?= $picture->url() ?>"/>
 	<div class="bottom">	
 		<div class="likes">
-			<i class="far fa-heart fa-lg"></i>
+		<form method="POST" action="/accueil" >
+			<input type="hidden" value="<?= $picture->id() ?>" name="picture_id">
+			<button type="submit"><i class="far fa-heart fa-lg"></i></button>
+		</form>	
 		</div>
-		<div>
+		<div class="likes-cont">
+			<p>Aimé par&nbsp</p> 
+			<?php foreach ($picture->likes() as $key => $like) { ?>
+			<a><?= $like->username() ?></a>
+			<p>,&nbsp</p>
+			<?php }?>
+			<!-- <a><?= count($picture->likes()) - 1 > 0 ? " et" . count($picture->likes()) . " personnes" : "" ?> </a></a> -->
 		</div>
 	</div>
 </div>
