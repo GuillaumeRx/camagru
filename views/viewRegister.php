@@ -2,7 +2,7 @@
 <div id="register">
 	<div class="form-box">
 		<h2>Inscription</h2>
-		<form method="POST" action="/register">
+		<form method="POST" action="/register" class="form">
 		<span>
 			<label for="username">Nom d’utilisateur</label>	
 			<input type="text" placeholder="Un truc fun" id="username" name="username"/>

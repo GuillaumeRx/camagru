@@ -5,10 +5,13 @@
 			<img src="<?= ($account->pic()) ? $account->pic() : 'http://via.placeholder.com/100' ?>"/>
 			<div class="username">
 				<p><?= $account->username() ?></p>
-				<a href="#">Modifier la photo de profil</a>
+				<form action="/account" method="POST">
+					<label class="pic-picker" for="pic">Modifier la photo de profil</label>	
+					<input type="file" accept="image/*" id="pic" name="pic" type="submit"/>
+				</form>
 			</div>
 		</div>
-		<form method="POST" action="/register">
+		<form method="POST" action="/account" class="form">
 		<span>
 			<label for="username">Nom d’utilisateur</label>	
 			<input type="text" placeholder="Ton nom d'utilisateur"  value="<?= $account->username() ?>" id="username" name="username"/>
@@ -19,13 +22,7 @@
 		</span>
 		<span>
 			<label for="bio">Bio</label>	
-			<textarea id="bio" name="bio">
-				<?= $account->bio() ?>
-			</textarea>		
-		</span>
-		<span>
-		<label for="password">Mot de passe</label>	
-			<input type="password" placeholder="Ça c'est un secret" id="password" name="password"/>
+			<textarea id="bio" name="bio"><?= $account->bio() ?></textarea>		
 		</span>
 		<button type="submit">Envoyer</button>
 		<a href="/logout">Déconnexion</a>

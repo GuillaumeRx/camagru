@@ -182,19 +182,17 @@ class AccountManager extends Model
 		return null;
 	}
 
-	public function editAccount($id, $username, $email, $password)
+	public function editAccount($id, $username, $email, $bio)
 	{
 		$username = trim($username);
 		$password = trim($password);
 
 		if (!$this->isIdValid($id))
 			throw new Exception('Invald account ID');
-		if (!$this->isUsernameValid($username))
+		if (!$this->isNameValid($username))
 			throw new Exception('Invalid username');
 		if (!$this->isEmailValid($email))
 			throw new Exception('Invalid email');
-		if (!$this->isPasswdValid($password))
-			throw new Exception('Invalid password');
 		
 		$idFromEmail = $this->getIdFromEmail($email);
 		if (!is_null($idFromEmail) && $idFromEmail != $id)
@@ -204,22 +202,20 @@ class AccountManager extends Model
 		if (!is_null($idFromName) && $idFromName != $id)
 			throw new Exception('Username already used');
 
-		$hash = password_hash($password, PASSWORD_BCRYPT);
-
-		$values = array(':username'=> $username, ':email' => $emai, ':password' => $hash);
+		$values = array(':id' => $id, ':username'=> $username, ':email' => $email, ':bio' => $bio);
 
 		try
 		{
-			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, password = :password WHERE id = :id');
+			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, bio = :bio WHERE id = :id');
 			$req->execute($values);
-			$req->prepare('SELECT * FROM accounts WHERE id = :id');
+			$values = array(':id' => $id);
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE id = :id');
 			$req->execute($values);
 		}
 		catch (PDOException $e)
 		{
 			throw new Exception('Query error');
 		}
-
 		$data = $req->fetch(PDO::FETCH_ASSOC);
 
 		return new Account($data);

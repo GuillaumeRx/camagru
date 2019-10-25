@@ -19,6 +19,8 @@ class ControllerAccount
 		$this->_accountManager = new AccountManager;
 		if ($account = $this->_accountManager->sessionLogin())
 		{
+			if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']))
+				$account = $this->_accountManager->editAccount($account->id(), $_POST['username'], $_POST['email'], $_POST['bio']);
 			$this->_view = new View('Account');
 			$this->_view->generate(array('account' => $account));
 		}

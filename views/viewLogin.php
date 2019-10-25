@@ -2,7 +2,7 @@
 <div id="login">
 	<div class="form-box">
 		<h2>Connexion</h2>
-		<form method="POST" action="/login">
+		<form method="POST" action="/login" class="form">
 		<span>
 			<label for="email">Adresse e-mail</label>
 			<input type="text" placeholder="mail@exemple.com" id="email" name="email"/>

@@ -222,7 +222,7 @@ button:active
 	color: #3897f0;
 }
 
-.form-box form
+.form-box .form
 {
 	display: flex;
 	flex-direction: column;
@@ -287,7 +287,7 @@ button:active
 
 #gallery .post .user img
 {
-	width: 5%;
+	width: 4%;
 	border-radius: 50%;
 }
 
@@ -297,7 +297,7 @@ button:active
 	flex-direction: row;
 	justify-content: left;
 	align-items: center;
-	padding: 5px 15px;
+	padding: 10px 20px;
 }
 
 #gallery .post .user a
@@ -335,6 +335,30 @@ button:active
 #account .form-box .profile-header img
 {
 	border-radius: 50%;
+}
+
+#account .form-box .profile-header form #pic
+{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#account .form-box .profile-header form .pic-picker
+{
+	color: #3897f0;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all .3s;
+}
+
+#account .form-box .profile-header form .pic-picker:hover
+{
+	opacity: .5;
+	transition: all .3s;
 }
 
 #account .form-box .profile-header .username
