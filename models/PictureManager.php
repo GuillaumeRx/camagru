@@ -109,7 +109,17 @@ class PictureManager extends Model
 		$values = array(":account_id" => $account_id, ":picture_id" => $picture_id);
 
 		if ($this->alreadyLiked($picture_id, $account_id))
-			return ;
+		{
+			try
+			{
+				$req = $this->getBdd()->prepare('DELETE FROM likes WHERE (picture_id = :picture_id) AND (account_id = :account_id)');
+				$req->execute($values);
+			}
+			catch (PDOException $e)
+			{
+				throw new Exception('Query error');
+			}
+		}
 		else
 		{
 			try
@@ -121,8 +131,8 @@ class PictureManager extends Model
 			{
 				throw new Exception('Query error');
 			}
-			$req->closeCursor();
 		}
+		$req->closeCursor();
 	}
 
 }

@@ -23,7 +23,17 @@ class ControllerAccueil
 		if (isset($_POST["picture_id"]) && $account = $this->_accountManager->sessionLogin())
 			$this->_pictureManager->likePicture($_POST["picture_id"], $account->id());
 		$pictures = $this->_pictureManager->getPictures();
-
+		if ($account = $this->_accountManager->sessionLogin())
+		{
+			foreach ($pictures as $picture)
+			{
+				foreach ($picture->likes() as $like)
+				{
+					if ($like->account_id() == $account->id())
+						$picture->setLiked(true);
+				}
+			}
+		}
 		$this->_view = new View('Accueil');
 		$this->_view->generate(array('pictures' => $pictures));
 	}

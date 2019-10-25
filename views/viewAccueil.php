@@ -11,16 +11,18 @@ foreach($pictures as $picture): ?>
 		<div class="likes">
 		<form method="POST" action="/accueil" >
 			<input type="hidden" value="<?= $picture->id() ?>" name="picture_id">
-			<button type="submit"><i class="far fa-heart fa-lg"></i></button>
+			
+			<button type="submit"><i class="<?= $picture->liked() ? " liked fas" : "far"?> fa-heart fa-lg"></i></button>
 		</form>	
 		</div>
 		<div class="likes-cont">
 			<p>Aimé par&nbsp</p> 
 			<?php foreach ($picture->likes() as $key => $like) { ?>
-			<a><?= $like->username() ?></a>
-			<p>,&nbsp</p>
+			<?php if (++$i == 3) break; ?>
+			<a href="/user/<?= $like->username() ?>"><?= ($i == 1) ? $like->username() : ", ". $like->username() ?></a>
 			<?php }?>
-			<!-- <a><?= count($picture->likes()) - 1 > 0 ? " et" . count($picture->likes()) . " personnes" : "" ?> </a></a> -->
+			<?php $i = 0?>
+			<a><?= count($picture->likes()) - 2 > 0 ? "&nbspet&nbsp" . (count($picture->likes()) - 2) . "&nbspautres personnes" : "" ?> </a>
 		</div>
 	</div>
 </div>

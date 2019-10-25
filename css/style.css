@@ -316,6 +316,28 @@ button:active
 	padding: 15px;
 }
 
+#gallery .post .bottom .likes form button
+{
+	background: none;
+	color: #999;
+	padding: 0;
+	border: none;
+	font-size: 18px;
+	font-weight: normal;
+	transition: color .3s;
+}
+
+#gallery .post .bottom .likes form button .liked
+{
+	color: #ED4956;
+}
+
+#gallery .post .bottom .likes form button:hover
+{
+	color: #ED4956;
+	transition: color .3s;
+}
+
 #gallery .post .bottom .likes-cont
 {
 	display: flex;

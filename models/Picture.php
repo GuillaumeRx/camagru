@@ -8,6 +8,7 @@ class Picture
 	private $_date;
 	private $_url;
 	private $_likes;
+	private $_liked = false;
 	private $_comments;
 
 	public function __construct(array $data)
@@ -59,7 +60,11 @@ class Picture
 		if (is_array($likes))
 			$this->_likes = $likes;
 	}
-
+	public function setLiked($liked)
+	{
+		if (is_bool($liked))
+			$this->_liked = $liked;
+	}
 	public function id()
 	{
 		return $this->_id;
@@ -83,6 +88,10 @@ class Picture
 	public function likes()
 	{
 		return $this->_likes;
+	}
+	public function liked()
+	{
+		return $this->_liked;
 	}
 }
 
