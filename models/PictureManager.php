@@ -138,9 +138,28 @@ class PictureManager extends Model
 		while ($data = $req->fetch(PDO::FETCH_ASSOC))
 		{
 			$pictures[] = new Picture($data);
-		 }
-		 return $pictures;
-		 $req->closeCursor();
+		}
+		foreach ($pictures as $picture)
+		{
+			$values = array(':id' => $picture->accountId());
+			try
+			{
+				$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE (id = :id)');
+				$req->execute($values);
+			}
+			catch (PDOException $e)
+			{
+				throw new Exception('Query error');;
+			}
+			$data = $req->fetch(PDO::FETCH_ASSOC);
+			$account = new Account($data);
+			$picture->setAccount($account);
+			$picture->setLikes($this->getLikes($picture->id()));
+			$picture->setComments($this->getComments($picture->id()));
+			$req->closeCursor();
+		}
+		return $pictures;
+		$req->closeCursor();
 	}
 
 	public function likePicture($picture_id, $account_id)

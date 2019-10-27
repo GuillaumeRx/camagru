@@ -563,6 +563,18 @@ button:active
 
 }
 
+#user .user-head
+{
+	display: flex;
+	flex-direction: row;
+}
+
+#user .user-head .user-pic
+{
+	width: 9vw;
+	height: 9vw;
+}
+
 #error
 {
 	display: flex;
