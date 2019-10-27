@@ -4,7 +4,7 @@ class Like
 {
 	private $_account_id;
 	private $_picture_id;
-	private $_username;
+	private $_account;
 
 	public function __construct(array $data)
 	{
@@ -36,10 +36,9 @@ class Like
 		if ($picture_id > 0)
 			$this->_picture_id = $picture_id;
 	}
-	public function setUsername($username)
+	public function setAccount($account)
 	{
-		if (is_string($username))
-			$this->_username = $username;
+			$this->_account = $account;
 	}
 
 	public function picture_id()
@@ -50,9 +49,9 @@ class Like
 	{
 		return $this->_account_id;
 	}
-	public function username()
+	public function account()
 	{
-		return $this->_username;
+		return $this->_account;
 	}
 }
 

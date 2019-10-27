@@ -51,7 +51,7 @@ class PictureManager extends Model
 			}
 			$data = $req->fetch(PDO::FETCH_ASSOC);
 			$account = new Account($data);
-			$like->setUsername($account->username());
+			$like->setAccount($account);
 			$req->closeCursor();
 		}
 		return $likes;

@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 	<link href="../css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="../js/script.js"></script>
 	<title><?= $t ?></title>
 </head>
 <body>

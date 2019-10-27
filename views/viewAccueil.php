@@ -18,11 +18,27 @@ foreach($pictures as $picture): ?>
 		<div class="likes-cont">
 			<p>Aimé par&nbsp</p> 
 			<?php foreach ($picture->likes() as $key => $like) { ?>
-			<?php if (++$i == 3) break; ?>
-			<a href="/user/<?= $like->username() ?>"><?= ($i == 1) ? $like->username() : ", ". $like->username() ?></a>
+			<?php if (++$i == 2) break; ?>
+			<a href="/user/<?= $like->account()->username() ?>"><?= $like->account()->username() ?></a>
 			<?php }?>
 			<?php $i = 0?>
-			<a><?= count($picture->likes()) - 2 > 0 ? "&nbspet&nbsp" . (count($picture->likes()) - 2) . "&nbspautres personnes" : "" ?> </a>
+			<?= count($picture->likes()) - 1 > 0 ? "<p>&nbspet&nbsp</p>" . '<a onclick="openLikes(' . $picture->id() . ')">' . (count($picture->likes()) - 1) . "&nbspautres personnes" . '</a>' : "" ?>
+		</div>
+	</div>
+</div>
+<div id="like-drawer-<?= $picture->id() ?>" class="like-drawer">
+	<div class="content">
+		<div class="header">
+			<p>Mentions J'aime</p>
+			<a onclick="openLikes(<?= $picture->id() ?>)"><i class="fas fa-times fa-2x"></i></a>
+		</div>
+		<div class="likes">
+			<?php foreach ($picture->likes() as $key => $like):?>
+			<div class="like">
+				<img src="<?= $like->account()->pic() ? "../media/".$like->account()->pic() : "http://via.placeholder.com/100" ?>" />
+				<a href="/user/<?= $like->account()->username() ?>"><?= $like->account()->username() ?></a>
+			</div>
+			<?php endforeach;?>
 		</div>
 	</div>
 </div>

@@ -11,7 +11,6 @@ class ControllerAccueil
 	{
 		if (isset($url) && count($url) > 1)
 			throw new Exception('Page Introuvable');
-		
 		else
 			$this->pictures();
 	}
