@@ -2,12 +2,14 @@
 <div id="account">
 	<div class="form-box">
 		<div class="profile-header">
-			<img src="<?= ($account->pic()) ? $account->pic() : 'http://via.placeholder.com/100' ?>"/>
+			<div class="user-pic">
+				<img src="<?= ($account->pic()) ? "../media/" . $account->pic() : 'http://via.placeholder.com/100' ?>"/>
+			</div>
 			<div class="username">
 				<p><?= $account->username() ?></p>
-				<form action="/account" method="POST">
+				<form enctype="multipart/form-data" action="/account" method="POST" id="pic-changer">
 					<label class="pic-picker" for="pic">Modifier la photo de profil</label>	
-					<input type="file" accept="image/*" id="pic" name="pic" type="submit"/>
+					<input type="file" accept="image/*" id="pic" name="pic" onchange="submit()"/>
 				</form>
 			</div>
 		</div>

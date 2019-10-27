@@ -4,7 +4,7 @@ class Picture
 {
 	private $_id;
 	private $_account_id;
-	private $_username;
+	private $_account;
 	private $_date;
 	private $_url;
 	private $_likes;
@@ -41,10 +41,9 @@ class Picture
 		if ($account_id > 0)
 			$this->_account_id = $account_id;
 	}
-	public function setUsername($username)
+	public function setAccount($account)
 	{
-		if (is_string($username))
-			$this->_username = $username;
+		$this->_account = $account;
 	}
 	public function setDate($date)
 	{
@@ -65,6 +64,11 @@ class Picture
 		if (is_bool($liked))
 			$this->_liked = $liked;
 	}
+	public function setComments($comments)
+	{
+		$this->_comments = $comments;
+	}
+
 	public function id()
 	{
 		return $this->_id;
@@ -73,9 +77,9 @@ class Picture
 	{
 		return $this->_account_id;
 	}
-	public function username()
+	public function account()
 	{
-		return $this->_username;
+		return $this->_account;
 	}
 	public function date()
 	{
@@ -92,6 +96,10 @@ class Picture
 	public function liked()
 	{
 		return $this->_liked;
+	}
+	public function comments()
+	{
+		return $this->_comments;
 	}
 }
 

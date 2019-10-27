@@ -132,6 +132,8 @@ class AccountManager extends Model
 			throw new Exception('Invalid Email');
 		if (!is_null($this->getIdFromEmail($email)))
 			throw new Exception('User already exist');
+		if (!is_null($this->getIdFromUsername($username)))
+			throw new Exception('Username not available');
 		
 		$hash = password_hash($password, PASSWORD_BCRYPT);
 		$values = array(':username' => $username, ':password' => $hash, ':email' => $email);
@@ -207,6 +209,31 @@ class AccountManager extends Model
 		try
 		{
 			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, bio = :bio WHERE id = :id');
+			$req->execute($values);
+			$values = array(':id' => $id);
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE id = :id');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+
+		return new Account($data);
+		$req->closeCursor();
+	}
+
+	public function editPicture($id, $pic)
+	{
+
+		if (!$this->isIdValid($id))
+			throw new Exception('Invald account ID');
+		$values = array(':id' => $id, ':pic' => $pic);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('UPDATE accounts SET pic = :pic WHERE id = :id');
 			$req->execute($values);
 			$values = array(':id' => $id);
 			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE id = :id');

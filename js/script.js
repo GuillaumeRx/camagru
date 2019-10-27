@@ -1,5 +1,12 @@
 var open = false;
 
+function checkContent(pictureId)
+{
+    button = document.getElementById("comment-btn" + pictureId);
+    commentBox = document.getElementById("comment-content" + pictureId);
+    (commentBox.value == '') ? button.disabled = true : button.disabled = false;
+}
+
 function openLikes(pictureId)
 {
 	const likeDrawer = document.getElementById("like-drawer-" + pictureId);

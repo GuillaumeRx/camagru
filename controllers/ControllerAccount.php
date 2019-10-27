@@ -16,10 +16,23 @@ class ControllerAccount
 
 	private function account()
 	{
+		$uploaddir = 'media/';
+
 		$this->_accountManager = new AccountManager;
 		if ($account = $this->_accountManager->sessionLogin())
 		{
-			if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']))
+			if (isset($_FILES['pic']))
+			{
+				$uploadfile = $uploaddir . basename($_FILES['pic']['name']);
+				if (!file_exists($uploadfile))
+				{
+					if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile))
+						$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
+				}
+				else
+				$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
+			}
+			else if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']))
 				$account = $this->_accountManager->editAccount($account->id(), $_POST['username'], $_POST['email'], $_POST['bio']);
 			$this->_view = new View('Account');
 			$this->_view->generate(array('account' => $account));

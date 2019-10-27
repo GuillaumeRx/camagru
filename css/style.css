@@ -77,6 +77,18 @@ button:active
 	opacity: .7;
 }
 
+.user-pic
+{
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.user-pic img
+{
+	height: 100%;
+	width: auto;
+}
+
 #nav
 {
 	display: flex;
@@ -285,10 +297,10 @@ button:active
 	margin-top: 40px;
 }
 
-#gallery .post .user img
+#gallery .post .user .user-pic
 {
-	width: 4%;
-	border-radius: 50%;
+	height: 2vw;
+	width: 2vw;
 }
 
 #gallery .post .user
@@ -314,6 +326,8 @@ button:active
 #gallery .post .bottom
 {
 	padding: 15px;
+	padding-bottom: 5px;
+	height: 55px;
 }
 
 #gallery .post .bottom .likes form button
@@ -343,6 +357,70 @@ button:active
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
+}
+
+#gallery .post .comments
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 0 15px;
+	padding-bottom: 10px;
+}
+
+#gallery .post .comments span
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 5px 0;
+	height: 12px;
+}
+
+#gallery .post .comments span a
+{
+	margin-right: 5px;
+}
+
+#gallery .post .comment-form
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-top: 1px solid #efefef;
+	padding: 0 16px;
+	height: 50px;
+}
+
+#gallery .post .comment-form form
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+}
+
+#gallery .post .comment-form form textarea
+{
+	resize: none;
+	flex: 1;
+	border: none;
+	height: 18px;
+	max-height: 80px;
+	color: #262626;
+	padding: 0;
+}
+
+#gallery .post .comment-form button
+{
+	background: transparent;
+	color: #3897f0;
+	font-size: 15px;
+}
+
+#gallery .post .comment-form button:disabled
+{
+	opacity: .3;
 }
 
 #gallery .like-drawer
@@ -411,11 +489,10 @@ button:active
 	padding: 8px 16px;
 }
 
-#gallery .like-drawer .content .likes .like img
+#gallery .like-drawer .content .likes .like .user-pic
 {
-	border-radius: 50%;
-	width: 15%;
-	height: auto;
+	width: 2vw;
+	height: 2vw;
 }
 
 #gallery .like-drawer .content .likes .like a
@@ -439,9 +516,10 @@ button:active
 	margin-bottom: 25px;
 }
 
-#account .form-box .profile-header img
+#account .form-box .profile-header .user-pic
 {
-	border-radius: 50%;
+	width: 80px;
+    height: 80px;
 }
 
 #account .form-box .profile-header form #pic
