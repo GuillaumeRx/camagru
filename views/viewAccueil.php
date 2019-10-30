@@ -8,7 +8,7 @@ foreach($pictures as $picture): ?>
 		</div>
 		<a href="/user/<?= $picture->account()->username() ?>"><?= $picture->account()->username() ?></a>
 	</div>
-	<img class="content" src="<?= $picture->url() ?>"/>
+	<img class="content" src="../media/<?= $picture->url() ?>"/>
 	<div class="bottom">	
 		<div class="likes">
 		<form method="POST" action="/accueil" >

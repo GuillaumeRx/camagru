@@ -207,6 +207,48 @@ class PictureManager extends Model
 			throw new Exception('Query error');
 		}
 		$req->closeCursor();
+
+		$values = array(':picture_id' => $picture_id);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM pictures, accounts WHERE (pictures.picture_id = :picture_id) AND (pictures.account_id = accounts.id)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		$pictureAccount = new Account($data);
+		$req->closeCursor();
+
+		$values = array(':id' => $account_id);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE (id = :id)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		$commentAccount = new Account($data);
+		$req->closeCursor();
+		
+		$this->sendNotification($pictureAccount->email(), $commentAccount->username());
+	}
+
+	private function sendNotification($email, $username)
+	{
+		$to = $email;
+		$subject = "Ton code d'activation";
+		$message = $username . "viens de commenter ta photo !";
+		$headers = 'From: guillaume@guillaumerx.fr' . "\r\n" .
+     				'Reply-To: guillaume@guillaumerx.fr' . "\r\n" .
+     				'X-Mailer: PHP/' . phpversion();
+		return (mail($to, $subject, $message, $headers));
 	}
 
 }

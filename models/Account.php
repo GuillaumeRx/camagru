@@ -6,8 +6,8 @@ class Account
 	private $_username;
 	private $_pic;
 	private $_bio;
+	private $_notification;
 	private $_email;
-	private $_authenticated;
 
 	public function __construct(array $data)
 	{
@@ -52,10 +52,12 @@ class Account
 		if (is_string($email))
 			$this->_email = $email;
 	}
-	public function setAuth($bool)
+	public function setNotification($notification)
 	{
-		if (is_bool($bool))
-			$this->_authenticated = $bool;
+		$notification = (int)$notification;
+
+		if ($notification == 1 || $notification == 0)
+			$this->_notification = $notification;
 	}
 
 	public function id()
@@ -78,9 +80,9 @@ class Account
 	{
 		return $this->_email;
 	}
-	public function isAuthenticated()
+	public function notification()
 	{
-		return $this->_authenticated;
+		return $this->_notification;
 	}
 }
 

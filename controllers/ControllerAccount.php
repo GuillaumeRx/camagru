@@ -32,8 +32,8 @@ class ControllerAccount
 				else
 				$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
 			}
-			else if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']))
-				$account = $this->_accountManager->editAccount($account->id(), $_POST['username'], $_POST['email'], $_POST['bio']);
+			else if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']) || isset($_POST['notification']))
+				$account = $this->_accountManager->editAccount($account->id(), $_POST['username'], $_POST['email'], $_POST['bio'], $_POST['notification']);
 			$this->_view = new View('Account');
 			$this->_view->generate(array('account' => $account));
 		}

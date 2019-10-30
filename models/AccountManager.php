@@ -118,11 +118,23 @@ class AccountManager extends Model
 		}
 	}
 
+	private function sendmail($email, $token)
+	{
+		$to = $email;
+		$subject = "Ton code d'activation";
+		$message = "Voici ton lien d'activation : " . $_SERVER['SERVER_NAME'] . "/activate" . "/" . $token;
+		$headers = 'From: guillaume@guillaumerx.fr' . "\r\n" .
+     				'Reply-To: guillaume@guillaumerx.fr' . "\r\n" .
+     				'X-Mailer: PHP/' . phpversion();
+		return (mail($to, $subject, $message, $headers));
+	}
+
 	public function register($username, $password, $email)
 	{
 		$username = trim($username);
 		$password = trim($password);
 		$email = trim($email);
+		$token = substr(md5(mt_rand()),0,15);
 
 		if (!$this->isNameValid($username))
 			throw new Exception('Invalid Username');
@@ -136,11 +148,11 @@ class AccountManager extends Model
 			throw new Exception('Username not available');
 		
 		$hash = password_hash($password, PASSWORD_BCRYPT);
-		$values = array(':username' => $username, ':password' => $hash, ':email' => $email);
+		$values = array(':username' => $username, ':password' => $hash, ':email' => $email, ':token' => $token);
 
 		try
 		{
-			$req = $this->getBdd()->prepare('INSERT INTO accounts (username, password, email) VALUES (:username, :password, :email)');
+			$req = $this->getBdd()->prepare('INSERT INTO accounts (username, password, email, token) VALUES (:username, :password, :email, :token)');
 			$req->execute($values);
 			$req->closeCursor();
 		}
@@ -148,6 +160,39 @@ class AccountManager extends Model
 		{
 			throw new Exception('Query error');
 		}
+		if (!$this->sendmail($email, $token))
+			throw new Exception('Mail error');
+	}
+
+	public function verifyAccount($token)
+	{
+		$values = array(':token' => $token);
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE (token = :token) AND (active = 0)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		if (is_array($data))
+		{
+			$values = array(':id' => $data['id']);
+			
+			try
+			{
+				$req = $this->getBdd()->prepare('UPDATE accounts SET active = 1 WHERE (id = :id)');
+				$req->execute($values);
+			}
+			catch (PDOException $e)
+			{
+				throw new Exception('Query error');
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public function login($email, $password)
@@ -184,10 +229,12 @@ class AccountManager extends Model
 		return null;
 	}
 
-	public function editAccount($id, $username, $email, $bio)
+	public function editAccount($id, $username, $email, $bio, $notification)
 	{
 		$username = trim($username);
 		$password = trim($password);
+		$notification = $notification == "on" ? 1 : 0;
+
 
 		if (!$this->isIdValid($id))
 			throw new Exception('Invald account ID');
@@ -204,11 +251,11 @@ class AccountManager extends Model
 		if (!is_null($idFromName) && $idFromName != $id)
 			throw new Exception('Username already used');
 
-		$values = array(':id' => $id, ':username'=> $username, ':email' => $email, ':bio' => $bio);
+		$values = array(':id' => $id, ':username'=> $username, ':email' => $email, ':bio' => $bio, 'notification' => $notification);
 
 		try
 		{
-			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, bio = :bio WHERE id = :id');
+			$req = $this->getBdd()->prepare('UPDATE accounts SET username = :username, email = :email, bio = :bio, notification = :notification WHERE id = :id');
 			$req->execute($values);
 			$values = array(':id' => $id);
 			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE id = :id');

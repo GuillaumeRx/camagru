@@ -26,6 +26,10 @@
 			<label for="bio">Bio</label>	
 			<textarea id="bio" name="bio"><?= $account->bio() ?></textarea>		
 		</span>
+		<span>
+			<label for="notification">Me tenir notifié</label>
+			<input type="checkbox" id="notification" name="notification" <?= $account->notification() ? "checked" : "" ?>/>
+		</span>
 		<button type="submit">Envoyer</button>
 		<a href="/logout">Déconnexion</a>
 		</form>
