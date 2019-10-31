@@ -19,8 +19,13 @@ class ControllerAccueil
 	{
 		$this->_pictureManager = new PictureManager;
 		$this->_accountManager = new AccountManager;
-		if (isset($_POST["picture_id"]) && isset($_POST["comment"]) && $account = $this->_accountManager->sessionLogin())
+		if (isset($_POST["picture_id"]) && isset($_POST['account_id']) && isset($_POST["comment"]) && $account = $this->_accountManager->sessionLogin())
+		{
 			$this->_pictureManager->commentPicture($_POST["picture_id"], $_POST["comment"], $account->id());
+			$pictureAccount = $this->_accountManager->getAccountFromId($_POST['account_id']);
+			if ($pictureAccount->notification())
+				$this->_pictureManager->sendNotification($pictureAccount->email(), $account->username());
+		}
 		else if (isset($_POST["picture_id"]) && $account = $this->_accountManager->sessionLogin())
 			$this->_pictureManager->likePicture($_POST["picture_id"], $account->id());
 		$pictures = $this->_pictureManager->getPictures();

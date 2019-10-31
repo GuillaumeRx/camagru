@@ -37,6 +37,7 @@ foreach($pictures as $picture): ?>
 	<div class="comment-form">
 		<form action="/accueil" method="post">
 			<input type="hidden" value="<?= $picture->id() ?>" name="picture_id">
+			<input type="hidden" value="<?= $picture->accountId() ?>" name="account_id">
 			<textarea placeholder="Ajouter un commentaire..." name="comment" id="comment-content<?= $picture->id() ?>" onkeyup="checkContent(<?= $picture->id() ?>)"></textarea>
 			<button type="submit" id="comment-btn<?= $picture->id() ?>" disabled>Publier</button>
 		</form>

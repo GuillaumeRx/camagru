@@ -296,6 +296,25 @@ class AccountManager extends Model
 		$req->closeCursor();
 	}
 
+	public function getAccountFromId($id)
+	{
+		$values = array(':id' => $id);
+		
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM accounts WHERE id = :id');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception ('Query error here');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+
+		return new Account($data);
+		$req->closeCursor();
+	}
+
 	public function logout()
 	{
 		if (session_status() == PHP_SESSION_ACTIVE)
