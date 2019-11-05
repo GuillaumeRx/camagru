@@ -563,16 +563,54 @@ button:active
 
 }
 
+#user
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#user .container
+{
+	max-width: 935px;
+}
+
 #user .user-head
 {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
 
 #user .user-head .user-pic
 {
-	width: 9vw;
-	height: 9vw;
+	width: 6.5vw;
+	height: 6.5vw;
+	position: relative;
+}
+#user .user-head .user-pic::after
+{
+	border: 1px solid rgba(0,0,0,.0975);
+    border-radius: 50%;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#user .container .user-head .infos
+{
+	width: 60%;
+}
+
+#user .container .user-head .infos .username
+{
+	font-weight: 300;
+	font-size: 28px;
+    line-height: 32px;
 }
 
 #error

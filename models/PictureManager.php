@@ -98,7 +98,6 @@ class PictureManager extends Model
 
 	public function getPictures()
 	{
-		$this->getBdd();
 		$pictures = $this->getAll('pictures', 'Picture');
 		foreach ($pictures as $picture)
 		{
