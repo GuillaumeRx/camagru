@@ -18,10 +18,17 @@
 				</div>
 			</div>
 		</div>
-		<!-- <?php foreach($pictures as $picture): ?>
-		<div class="post">
-			<img class="content" src="<?= "../" . $picture->url() ?>"/>
+		<div class="user-posts">
+			<p><i class="fas fa-th"></i> Publications</p>
+			<?php foreach($pictures as $picture): ?>
+			<div class="post">
+				<div class="overlay">
+					<div><i class="fas fa-heart"></i><p><?= count($picture->likes()) ?></p></div>
+					<div><i class="fas fa-comment"></i><p><?= count($picture->comments()) ?></p></div>
+				</div>
+				<img class="content" src="<?= "../media/" . $picture->url() ?>"/>
+			</div>
+			<?php endforeach; ?>
 		</div>
-		<?php endforeach; ?> -->
 	</div>
 </div>

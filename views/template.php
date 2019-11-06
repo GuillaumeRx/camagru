@@ -12,21 +12,23 @@
 </head>
 <body>
 	<div id="nav">
-		<div class="logo">
-			<i class="fab fa-instagram fa-lg"></i>
-			<div class="separator"></div>			
-			<a href="/">Camagru</a>
-		</div>
-		<div>
-			<div class="search">
-				<i class="fas fa-search fa-xs"></i>
-				<input type="text" placeholder="Rechercher"/>
+		<div class="container">
+			<div class="logo">
+				<i class="fab fa-instagram fa-lg"></i>
+				<div class="separator"></div>			
+				<a href="/">Camagru</a>
 			</div>
-		</div>
-		<div class="user">
-			<a href="/account">
-				<i class="far fa-user fa-lg"></i>
-			</a>
+			<div>
+				<div class="search">
+					<i class="fas fa-search fa-xs"></i>
+					<input type="text" placeholder="Rechercher"/>
+				</div>
+			</div>
+			<div class="user">
+				<a href="/account">
+					<i class="far fa-user fa-lg"></i>
+				</a>
+			</div>
 		</div>
 	</div>
 	<div id="content">

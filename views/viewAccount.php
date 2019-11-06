@@ -24,7 +24,7 @@
 		</span>
 		<span>
 			<label for="bio">Bio</label>	
-			<textarea id="bio" name="bio"><?= $account->bio() ?></textarea>		
+			<textarea id="bio" name="bio" maxlength="255"><?= $account->bio() ?></textarea>		
 		</span>
 		<span>
 			<label for="notification">Me tenir notifié</label>
