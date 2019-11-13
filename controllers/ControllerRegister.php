@@ -21,8 +21,7 @@ class ControllerRegister
 			
 			$this->_accountManager = new accountManager();
 			$this->_accountManager->register($_POST['username'], $_POST['password'], $_POST['email']);
-			$this->_view = new View('Registered');
-			$this->_view->generate(array());
+			header('Location: /login');
 		}
 		$this->_view = new View('Register');
 		$this->_view->generate(array());
