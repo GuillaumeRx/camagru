@@ -21,12 +21,16 @@
 			<div>
 				<div class="search">
 					<i class="fas fa-search fa-xs"></i>
-					<input type="text" placeholder="Rechercher"/>
+					<input id="search-box" type="text" placeholder="Rechercher" onkeyup="searchAccount()"/>
+					<div id="search-results"></div>
 				</div>
 			</div>
 			<div class="user">
 				<a href="/account">
 					<i class="far fa-user fa-lg"></i>
+				</a>
+				<a href="/logout">
+					<i class="fas fa-sign-out-alt fa-lg"></i>
 				</a>
 			</div>
 		</div>

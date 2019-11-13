@@ -334,6 +334,27 @@ class AccountManager extends Model
 			$req->closeCursor();
 		}
 	}
+
+	public function searchAccount($username)
+	{
+			$tab = array();
+			$values = array(':username' => $username . '%');
+			try
+			{
+				$req = $this->getBdd()->prepare("SELECT id, username, pic, bio, email FROM accounts WHERE username LIKE :username");
+				$req->execute($values);
+			}
+			catch (PDOException $e)
+			{
+				throw new Exception('Query error');
+			}
+			while ($data = $req->fetch(PDO::FETCH_ASSOC))
+			{
+				$tab[] = $data;
+			}
+			return $tab;
+			$req->closeCursor();
+	}
 }
 
 ?>

@@ -172,13 +172,30 @@ button:active
 	background: #fafafa;
 	font-size: 14px;
 	color: #999;
-	width: 100%;
+	width: 80%;
 }
 
 #nav .search input::placeholder
 {
 	font-size: 14px;
 	color: #999;
+}
+
+#nav .search #search-results
+{
+	position: absolute;
+	left: -12%;
+	top: 35px;
+	max-height: 500px;
+	width: 120%
+}
+
+#nav .user
+{
+	display: flex;
+	flex-direction: row;
+	width: 100px;
+	justify-content: space-between
 }
 
 #nav .user a
