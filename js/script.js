@@ -47,7 +47,7 @@ function sendToDom(content)
 	for (var account in content)
 	{
 		console.log(content[account]);
-		var user = '<div class="user"><img src="' + (content[account].pic == null ? 'http://via.placeholder.com/100' : ('../media/' + content[account].pic)) + '"/><a href="/user/' + content[account].username + '">' + content[account].username + '</a></div>';
+		var user = '<div class="user"><div class="user-pic"><img src="' + (content[account].pic == null ? 'http://via.placeholder.com/100' : ('../media/' + content[account].pic)) + '"/></div><a href="/user/' + content[account].username + '">' + content[account].username + '</a></div>';
 		container.innerHTML += user;
 	}
 }
@@ -56,26 +56,27 @@ function searchAccount()
 {
 	var content = document.getElementById("search-box").value;
 	var container = document.getElementById("search-results");
+	var corner = document.getElementById("corner");
 	var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = () => {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
            if (xmlhttp.status == 200) {
-			   //console.log(JSON.parse(xmlhttp.responseText));
 			   sendToDom(JSON.parse(xmlhttp.responseText));
-           }
-           else if (xmlhttp.status == 400) {
-              console.error('There was an error 400');
-           }
-           else {
-            	console.error('something else other than 200 was returned');
            }
         }
 	};
-	container.innerHTML = "";
+	container.innerHTML = '';
 	if (content != '')
 	{
+		container.style.display = 'flex';
+		corner.style.display = 'block';
     	xmlhttp.open("GET", "/search/" + content, true);
 		xmlhttp.send();
+	}
+	else
+	{
+		container.style.display = 'none';
+		corner.style.display = 'none';
 	}
 }

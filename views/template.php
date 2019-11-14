@@ -22,6 +22,7 @@
 				<div class="search">
 					<i class="fas fa-search fa-xs"></i>
 					<input id="search-box" type="text" placeholder="Rechercher" onkeyup="searchAccount()"/>
+					<div id="corner"></div>
 					<div id="search-results"></div>
 				</div>
 			</div>

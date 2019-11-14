@@ -183,11 +183,81 @@ button:active
 
 #nav .search #search-results
 {
+	display: none;
+	flex-direction: column;
+	background: #fff;
+	border: solid 1px #e6e6e6;
+	box-shadow: 0 0 5px rgba(0,0,0,.0975);
+	border-radius: 3px;
+	max-height: 362px;
+    overflow-x: hidden;
+    overflow-y: auto;
 	position: absolute;
 	left: -12%;
-	top: 35px;
+	top: 48px;
 	max-height: 500px;
-	width: 120%
+	width: 120%;
+	z-index: 2;
+}
+
+#nav .search #search-results::after
+{
+	border-color: transparent transparent #fff;
+	border-style: solid;
+	content: " ";
+	position: absolute;
+    border-width: 0 10px 10px;
+    height: 0;
+    left: 110px;
+    top: -10px;
+    width: 0;
+    z-index: 3;
+}
+
+#nav .search #corner
+{
+	content: " ";
+	position: absolute;
+	border: solid 1px #e6e6e6;
+    box-shadow: 0 0 5px 1px rgba(0,0,0,.0975);
+    height: 14px;
+    left: 0;
+    margin: auto;
+    right: 0;
+    top: 40px;
+    transform: rotate(45deg);
+    width: 14px;
+	z-index: 1;
+	display: none;
+}
+
+#nav .search #search-results .user
+{
+	border-bottom: solid 1px #efefef;
+	width: 88%;
+	padding: 8px 14px;
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+}
+
+#nav .search #search-results .user:hover
+{
+	background: #fafafa;
+}
+
+#nav .search #search-results .user .user-pic
+{
+	height: 35px;
+	width: 35px;
+}
+
+#nav .search #search-results .user a
+{
+	margin-left: 10px;
+	font-weight: 600;
 }
 
 #nav .user
