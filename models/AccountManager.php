@@ -355,6 +355,37 @@ class AccountManager extends Model
 			return $tab;
 			$req->closeCursor();
 	}
+
+	public function sendReset($email, $token)
+	{
+		$to = $email;
+		$subject = "Reinitialisation de ton mot de passe";
+		$message = "Voici ton lien : " . $_SERVER['SERVER_NAME'] . "/reset" . "/" . $token;
+		$headers = 'From: guillaume@guillaumerx.fr' . "\r\n" .
+     				'Reply-To: guillaume@guillaumerx.fr' . "\r\n" .
+     				'X-Mailer: PHP/' . phpversion();
+		return (mail($to, $subject, $message, $headers));
+	}
+
+	public function callReset($account)
+	{
+		$token = substr(md5(mt_rand()),0,15);
+
+		$values = array(':email' => $account->email(), ':token' => $token);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('INSERT INTO password_reset (email, token) VALUES (:email, :token)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+
+		$this->sendReset($account->email(), $token);
+		$req->closeCursor();
+	}
 }
 
 ?>

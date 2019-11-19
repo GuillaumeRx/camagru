@@ -659,6 +659,14 @@ button:active
 
 }
 
+#account .form-box .reset-btn
+{
+	background: transparent;
+	color: #3897f0;
+	font-size: 15px;
+	margin: 15px 0;
+}
+
 #user
 {
 	display: flex;
