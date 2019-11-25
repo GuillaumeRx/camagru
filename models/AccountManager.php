@@ -386,6 +386,28 @@ class AccountManager extends Model
 		$this->sendReset($account->email(), $token);
 		$req->closeCursor();
 	}
+
+	public function verifyToken($token)
+	{
+		$values= array(':token' => $token);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM password_reset WHERE (token = :token)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		if (is_array($data))
+			return $data;
+		else
+			return null;
+		$req->closeCursor();
+	}
 }
 
 ?>
