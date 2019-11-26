@@ -271,6 +271,40 @@ class AccountManager extends Model
 		$req->closeCursor();
 	}
 
+	public function editPassword($email, $password)
+	{
+		$password = trim($password);
+
+		if (!$this->isPasswdValid($password))
+			throw new Exception('Invalid password');
+
+		$hash = password_hash($password, PASSWORD_BCRYPT);
+
+		$values = array(':email' => $email, ':password' => $hash);
+		try
+		{
+			$req = $this->getBdd()->prepare('UPDATE accounts SET password = :password WHERE email = :email');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error 1');
+		}
+		$req->closeCursor();
+		
+		$values = array(':email' => $email);
+		try
+		{
+			$req = $this->getBdd()->prepare('DELETE FROM password_reset WHERE email = :email');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error 2');
+		}
+		$req->closeCursor();
+	}
+
 	public function editPicture($id, $pic)
 	{
 

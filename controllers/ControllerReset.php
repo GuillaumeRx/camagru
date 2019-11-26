@@ -14,12 +14,16 @@ class ControllerReset
 			$this->reset($url[1]);
 	}
 
-	private function user($token)
+	private function reset($token)
 	{
 		$this->_accountManager = new AccountManager;
-		if ($user = $this->_accountManager->verify($token))
+		if ($user = $this->_accountManager->verifyToken($token))
 		{
-			//add send of pwd
+			if (isset($_POST['email']) && isset($_POST['password']))
+			{
+				$this->_accountManager->editPassword($_POST['email'], $_POST['password']);
+				header('Location: /');
+			}
 			$this->_view = new View('Reset');
 			$this->_view->generate(array('token' => $token, 'user' => $user));
 		}
