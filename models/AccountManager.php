@@ -401,12 +401,13 @@ class AccountManager extends Model
 		return (mail($to, $subject, $message, $headers));
 	}
 
-	public function callReset($account)
+	public function callReset($email)
 	{
 		$token = substr(md5(mt_rand()),0,15);
 
-		$values = array(':email' => $account->email(), ':token' => $token);
-
+		$values = array(':email' => $email, ':token' => $token);
+		if (is_null($this->getIdFromEmail($email)))
+			throw new Exception('Invalid email');
 		try
 		{
 			$req = $this->getBdd()->prepare('INSERT INTO password_reset (email, token) VALUES (:email, :token)');
@@ -417,7 +418,8 @@ class AccountManager extends Model
 			throw new Exception('Query error');
 		}
 
-		$this->sendReset($account->email(), $token);
+		$this->sendReset($email, $token);
+		return true;
 		$req->closeCursor();
 	}
 

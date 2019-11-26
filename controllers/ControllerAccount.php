@@ -32,9 +32,9 @@ class ControllerAccount
 				else
 				$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
 			}
-			else if (isset($_POST['password_reset']) && isset($_POST['email']))
+			else if (isset($_POST['password_reset']))
 			{
-				$this->_accountManager->callReset($account);
+				$this->_accountManager->callReset($account->email());
 			}
 			else if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']) || isset($_POST['notification']))
 			{

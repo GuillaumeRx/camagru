@@ -32,7 +32,6 @@
 		</span>
 		<button type="submit">Envoyer</button>
 		<form action="/account" method="POST">
-			<input type="hidden" name="email" value="<?= $account->email() ?>"/>
 			<button class="reset-btn" name="password_reset" value="submit" type="submit">Reinitialiser le mot de passe</button>
 		</form>
 		<a href="/logout">Déconnexion</a>

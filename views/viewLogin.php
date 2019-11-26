@@ -14,6 +14,7 @@
 			<button type="submit">Envoyer</button>
 		</form>
 		<p><?= $error ?></p>
+		<a href="/forgot">Mot de passe oublié</a>
 		<p>Pas encore de compte ? <a href="/register">Incription</a></p>
 	</div>
 </div>
