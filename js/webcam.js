@@ -1,65 +1,42 @@
-window.onload = startup();
+var constraints = { video:{width: 720, height: 720}, audio: false };
 
-var width = 320;
-var height = 0;
-var streaming = false;
-var video = null;
-var canvas = null;
-var photo = null;
-var startbutton = null;
+const	cameraView = document.querySelector('#camera-view'),
+		cameraSensor = document.querySelector('#camera-sensor'),
+		cameraOutput = document.querySelector('#camera-output'),
+		cameraBtn = document.querySelector('#camera-btn'),
+		filterScreen = document.querySelector('#filter-screen');
 
-function startup() {
-	video = document.getElementById('video');
-	canvas = document.getElementById('canvas');
-	photo = document.getElementById('photo');
-	startbutton = document.getElementById('startbutton');
-
-	navigator.mediaDevices.getUserMedia({video: true, audio: false})
+function cameraStart() {
+	navigator.mediaDevices.getUserMedia(constraints)
 	.then((stream) => {
-		video.srcObject = stream;
-		video.play();
-	}).catch((err) => {
-		console.log(err);
-	});
-
-	video.addEventListener('canplay', (e) => {
-		if (!streaming) {
-			height = video.videoHeight / (video.videoWidth / width);
-			video.setAttribute('width', width);
-        	video.setAttribute('height', height);
-			canvas.setAttribute('width', width);
-			canvas.setAttribute('height', height);
-			streaming = true;
-		}
-	}, false);
-
-	startbutton.addEventListener('click', (e) => {
-		takePicture();
-		e.preventDefault();
-	}, false);
-
-	clearPhoto();
+		track = stream.getTracks()[0];
+		cameraView.srcObject = stream;
+	})
+	.catch((err) => {
+		console.error(`An error occured : ${err}`);
+	})
 }
 
-function clearPhoto() {
-	var context = canvas.getContext('2d');
-	context.fillStyle = 'AAA';
-	context.fillRect(0, 0, canvas.width, canvas.height);
-
-	var data = canvas.toDataURL('image/png');
-	photo.setAttribute('src', data);
+function initFilters() {
+	filterScreen.width = constraints.video.width;
+	filterScreen.height = constraints.video.height;
 }
 
-function takePicture() {
-	var context = canvas.getContext('2d');
-	if (width && height) {
-		canvas.width = width;
-		canvas.height = height;
-		context.drawImage(video, 0, 0, width, height);
+cameraBtn.onclick = (e) => {
+	cameraSensor.width = cameraView.videoWidth;
+	cameraSensor.height= cameraView.videoHeight;
+	cameraSensor.getContext('2d').drawImage(cameraView, 0, 0);
+	console.log(cameraSensor.toDataURL('image/png'));
+}
 
-		var data = canvas.toDataURL('image/png');
-		photo.setAttribute('src', data);
-	} else {
-		clearPhoto();
-	}
+filterScreen.addEventListener('mousemove', (e) => {
+	ctx = filterScreen.getContext('2d');
+	var rect = e.target.getBoundingClientRect();
+	ctx.clearRect(0, 0, filterScreen.width, filterScreen.height);
+	ctx.fillRect((e.clientX - rect.left), (e.clientY - rect.top), 250, 250)
+});
+
+window.onload = () => {
+	cameraStart();
+	initFilters();
 }

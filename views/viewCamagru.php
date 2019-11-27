@@ -1,11 +1,10 @@
 <?php $this->_t = 'Montage'; ?>
 <div id="camagru">
+	<canvas id="camera-sensor"></canvas>
 	<div class="camera">
-    	<video id="video">Video stream not available.</video>
-    	<button id="startbutton">Take photo</button>
+		<canvas id="filter-screen"></canvas>
+    	<video id="camera-view" autoplay playsinline></video>
+		<button id="camera-btn">Take a picture</button>
 	</div>
-	<canvas id="canvas"></canvas>
-  	<div class="output">
-    	<img id="photo" alt="The screen capture will appear in this box.">
-  	</div>
+    <script src="/js/webcam.js"></script>
 </div>

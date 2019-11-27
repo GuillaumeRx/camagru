@@ -823,6 +823,26 @@ button:active
 	width: auto;
 }
 
+#camagru .camera {
+	position: relative;
+	width: 720px;
+}
+
+#camagru .camera canvas
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+}
+
+#camagru .camera button
+{
+	position: absolute;
+	bottom: 40px;
+	left: calc(50% - 54px)
+}
+
 #error
 {
 	display: flex;
