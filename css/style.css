@@ -826,6 +826,7 @@ button:active
 #camagru .camera {
 	position: relative;
 	width: 720px;
+	z-index: 1;
 }
 
 #camagru .camera canvas
@@ -833,14 +834,15 @@ button:active
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 999;
+	z-index: 2;
 }
 
 #camagru .camera button
 {
 	position: absolute;
 	bottom: 40px;
-	left: calc(50% - 54px)
+	left: calc(50% - 54px);
+	z-index: 3;
 }
 
 #error
