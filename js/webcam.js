@@ -9,13 +9,14 @@ const filters = [
 ];
 const usedFilters = []; 
 
-filters[0].src.src = '/media/face.svg'
+filters[0].src.src = '/media/thug.png'
 
 const	cameraView = document.querySelector('#camera-view'),
 		cameraSensor = document.querySelector('#camera-sensor'),
 		cameraOutput = document.querySelector('#camera-output'),
 		cameraBtn = document.querySelector('#camera-btn'),
 		filterScreen = document.querySelector('#filter-screen');
+		filterSelector = document.querySelector('#filter-selector')
 
 function cameraStart() {
 	navigator.mediaDevices.getUserMedia(constraints)
@@ -31,11 +32,22 @@ function cameraStart() {
 function initFilters() {
 	filterScreen.width = constraints.video.width;
 	filterScreen.height = constraints.video.height;
+	
+}
+
+function initSelector() {
+	filterSelector.height = constraints.video.height;
+	filterSelector.width = 250;
+	var ctx = filterSelector.getContext('2d');
+	for (var filter of filters)
+	{
+		ctx.drawImage(filter.src, filterSelector.width - filter.size.width, 20, filter.size.width, filter.size.height);
+	}
 }
 
 function isMouseOver(mousePos, filter)
 {
-	if (filter.pos.x && filter.pos.y && ((mousePos.x > (filter.pos.x + filter.size.width) || mousePos.x < filter.pos.x) || (mousePos.y > (filter.pos.y + filter.size.height) || mousePos.y < filter.pos.y)))
+	if (((mousePos.x > (filter.pos.x + filter.size.width) || mousePos.x < filter.pos.x) || (mousePos.y > (filter.pos.y + filter.size.height) || mousePos.y < filter.pos.y)))
 		return false;
 	return true;
 }
@@ -71,5 +83,6 @@ filterScreen.addEventListener('mousemove', moveFilter, false);
 window.onload = () => {
 	cameraStart();
 	initFilters();
+	initSelector();
 	usedFilters.push(filters[0]);
 }
