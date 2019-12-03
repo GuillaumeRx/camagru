@@ -1,5 +1,15 @@
 var constraints = { video:{width: 720, height: 720}, audio: false };
 var mouseDown = false;
+const filters = [
+	{
+		size: {height: 250, width: 250},
+		pos: {x: null, y: null},
+		src: new Image()
+	}
+];
+const usedFilters = []; 
+
+filters[0].src.src = '/media/face.svg'
 
 const	cameraView = document.querySelector('#camera-view'),
 		cameraSensor = document.querySelector('#camera-sensor'),
@@ -23,15 +33,28 @@ function initFilters() {
 	filterScreen.height = constraints.video.height;
 }
 
+function isMouseOver(mousePos, filter)
+{
+	if (filter.pos.x && filter.pos.y && ((mousePos.x > (filter.pos.x + filter.size.width) || mousePos.x < filter.pos.x) || (mousePos.y > (filter.pos.y + filter.size.height) || mousePos.y < filter.pos.y)))
+		return false;
+	return true;
+}
+
 var moveFilter = (e) => {
-	if (mouseDown)
+	var rect = e.target.getBoundingClientRect();
+	for (var filter of usedFilters)
 	{
+		if (mouseDown && isMouseOver({x: e.clientX - rect.left, y: e.clientY - rect.top}, filter))
+		{
 		ctx = filterScreen.getContext('2d');
-		var rect = e.target.getBoundingClientRect();
-		ctx.clearRect(0, 0, filterScreen.width, filterScreen.height);
-		ctx.fillRect((e.clientX - rect.left - 125), (e.clientY - rect.top - 125), 250, 250)
+		ctx.clearRect(filter.pos.x, filter.pos.y, filter.size.width, filter.size.height);
+		ctx.drawImage(filter.src, (e.clientX - rect.left - filter.size.width / 2), (e.clientY - rect.top - filter.size.height / 2), filter.size.width , filter.size.height)
+		filter.pos.x = e.clientX - rect.left - (filter.size.width / 2);
+		filter.pos.y = e.clientY - rect.top - (filter.size.height / 2);
+		}
 	}
 }
+
 
 cameraBtn.onclick = (e) => {
 	cameraSensor.width = cameraView.videoWidth;
@@ -48,4 +71,5 @@ filterScreen.addEventListener('mousemove', moveFilter, false);
 window.onload = () => {
 	cameraStart();
 	initFilters();
+	usedFilters.push(filters[0]);
 }
