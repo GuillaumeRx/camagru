@@ -264,7 +264,7 @@ button:active
 {
 	display: flex;
 	flex-direction: row;
-	width: 100px;
+	width: 150px;
 	justify-content: space-between
 }
 
@@ -375,6 +375,10 @@ button:active
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+}
+
+#gallery .page {
+	display: none;
 }
 
 #gallery .post
@@ -823,6 +827,36 @@ button:active
 	width: auto;
 }
 
+#camagru
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 100vw;
+}
+
+#camagru .box {
+	background-color: #fff;
+	border: 1px solid #dbdbdb;
+	border-radius: 3px;
+	padding: 20px;
+}
+
+#camagru .camera-box
+{
+	width: 60%;
+}
+
+#camagru #user-pic 
+{
+	width: 30%;
+}
+
+#camagru #user-pic img
+{
+	width: 90%;
+}
+
 #camagru .camera {
 	position: relative;
 	width: 720px;
@@ -843,6 +877,12 @@ button:active
 	bottom: 40px;
 	left: calc(50% - 54px);
 	z-index: 3;
+	display: none;
+}
+
+#camagru #filter-selector
+{
+	width: 200px;
 }
 
 #error

@@ -80,3 +80,59 @@ function searchAccount()
 		corner.style.display = 'none';
 	}
 }
+
+var current_page = 1;
+var pagesSelector = null;
+
+function prevPage()
+{
+    if (current_page > 1) {
+		changePage(current_page - 1);
+        current_page--;
+       
+    }
+}
+
+function nextPage()
+{
+    if (current_page < numPages()) {
+		changePage(current_page + 1);
+        current_page++;
+        
+    }
+}
+
+function changePage(page)
+{
+	pagesSelector = document.querySelectorAll(".page");
+	console.log(pagesSelector);
+	var btn_next = document.getElementById("next");
+    var btn_prev = document.getElementById("prev");
+    // Validate page
+    if (page < 1) page = 1;
+    if (page > numPages()) page = numPages();
+
+	pagesSelector[current_page - 1].style.display = "none";
+	pagesSelector[page - 1].style.display = "block";
+
+    if (page == 1) {
+        btn_prev.style.visibility = "hidden";
+    } else {
+        btn_prev.style.visibility = "visible";
+    }
+
+    if (page == numPages()) {
+        btn_next.style.visibility = "hidden";
+    } else {
+        btn_next.style.visibility = "visible";
+    }
+}
+
+function numPages()
+{
+    return (pagesSelector.length);
+}
+
+window.onload = () => {
+	changePage(1);
+};

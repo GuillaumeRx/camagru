@@ -218,6 +218,58 @@ class PictureManager extends Model
      				'X-Mailer: PHP/' . phpversion();
 		return (mail($to, $subject, $message, $headers));
 	}
+
+	public function sendPicture($path, $account)
+	{
+		$values = array(':account_id' => $account->id(), ':url' => $path);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('INSERT INTO pictures (account_id, url) VALUES (:account_id, :url)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$req->closeCursor();
+	}
+
+	public function processPhoto($picture_base, $filters_base, $account)
+	{
+		$width = 720;
+		$height = 720;
+		$base = imagecreatetruecolor($width, $height);
+		$name = substr(md5(mt_rand()),0,15) . '.png';
+		$save = './media/' . $name;
+		imagesavealpha($base, true);
+		$transparent = imagecolorallocatealpha($base, 0, 0, 0, 127);
+		imagefill($base, 0, 0, $transparent);
+ 		$picture = imagecreatefromstring(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $picture_base)));
+		$filters = imagecreatefromstring(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $filters_base)));
+		imagecopy($base, $picture, 0, 0, 0, 0, $width, $height);
+		imagecopy($base, $filters, 0, 0, 0, 0, $width, $height);
+		imagepng($base, $save);
+		imagedestroy($picture);
+		imagedestroy($filters);
+		$this->sendPicture($name, $account);
+	}
+
+	public function deletePicture($picture_id)
+	{
+		$values = array(':id' => $picture_id);
+		
+		try
+		{
+			$req = $this->getbdd()->prepare('DELETE FROM pictures WHERE (id = :id)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$req->closeCursor();
+	}
 }
 
 ?>

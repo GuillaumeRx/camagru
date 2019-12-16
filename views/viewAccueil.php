@@ -1,6 +1,14 @@
 <div id="gallery">
+<div class="buttons">
+	<button id="prev" onclick="prevPage()">prev</button>
+	<button id="next" onclick="nextPage()">next</button>
+</div>
 <?php $this->_t = 'Accueil';
-foreach($pictures as $picture): ?>
+$j = 0;
+foreach($pictures as $picture) {
+	if (++$j == 1)
+		echo("<div class='page'>");
+?>
 <div class="post">
 	<div class="user">
 		<div class="user-pic">
@@ -62,5 +70,12 @@ foreach($pictures as $picture): ?>
 		</div>
 	</div>
 </div>
-<?php endforeach; ?>
+<?php 
+	if($j == 5)
+	{
+		echo("</div>");
+		$j = 0;
+	}
+}	
+?>
 </div>

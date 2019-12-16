@@ -27,6 +27,9 @@
 				</div>
 			</div>
 			<div class="user">
+				<a href="/camagru">
+					<i class="fas fa-camera-retro fa-lg"></i>
+				</a>
 				<a href="/account">
 					<i class="far fa-user fa-lg"></i>
 				</a>

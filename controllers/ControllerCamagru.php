@@ -4,6 +4,7 @@ require_once('views/View.php');
 class ControllerCamagru
 {
 	private $_accountManager;
+	private $_pictureManager;
 	private $_view;
 
 	public function __construct($url)
@@ -17,13 +18,23 @@ class ControllerCamagru
 	private function camagru()
 	{
 		$this->_accountManager = new AccountManager;
+		$this->_pictureManager = new PictureManager;
 		if ($user = $this->_accountManager->sessionLogin())
 		{
+			if (isset($_POST['picture']) && isset($_POST['filters']))
+			{
+				$this->_pictureManager->processPhoto($_POST['picture'], $_POST['filters'], $user);
+			}
+			else if (isset($_POST['delete']))
+			{
+				$this->_pictureManager->deletePicture($_POST['delete']);
+			}
+			$pictures = $this->_pictureManager->getAccountPictures($user->id());
 			$this->_view = new View('Camagru');
-			$this->_view->generate(array('user' => $user));
+			$this->_view->generate(array('user' => $user, 'pictures' => $pictures));
 		}
 		else
-			header('Location: /');
+			header('Location: /login');
 	}
 }
 
