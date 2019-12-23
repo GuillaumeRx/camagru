@@ -1,0 +1,101 @@
+@media screen and (max-width: 520px) {
+
+	#nav .separator {
+		display: none;
+	}
+
+	#nav .logo i {
+		display: none;
+	}
+
+	#nav .user {
+		width: 30%;
+	}
+
+	#nav .search-cont {
+		width: 30%;
+	}
+
+	#nav .search-cont .search {
+		width: 80%;
+	} 
+
+	.form-box {
+		width: 60%;
+	}
+
+	.form-box input {
+		width: 230px;
+	}
+
+	.form-box textarea {
+		width: 230px;
+	}
+
+
+	.form-box form span {
+		flex-direction: column;
+    	justify-content: space-between;
+    	align-items: center;
+	}
+
+	.form-box label {
+		text-align: center;
+		width: 100%;
+		padding: 20px 0;
+	}
+
+	#account .form-box .profile-header {
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	#account .form-box .profile-header .username {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#account .form-box .profile-header form .pic-picker {
+		font-size: 12px;
+	}
+
+	#camagru {
+		flex-direction: column;
+	}
+
+	#camagru .camera-box {
+		width: 100%;
+	}
+
+	#camagru .camera {
+		width: 100%;
+		height: auto;
+	}
+
+	#camagru #camera-sensor, #filter-screen
+	{
+		width: 100%;
+	}
+
+	#camagru #camera-view {
+		width: 100%;
+	}
+
+	#camagru #filter-selector {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#camagru #filter-selector img {
+		width: 50%;
+		height: auto;
+	}
+
+	#camagru #user-pic {
+		width: 84%;
+	}
+}

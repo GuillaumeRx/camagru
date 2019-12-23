@@ -20,7 +20,7 @@ class ControllerRegister
 		{
 			
 			$this->_accountManager = new accountManager();
-			$this->_accountManager->register($_POST['username'], $_POST['password'], $_POST['email']);
+			$this->_accountManager->register(htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']), htmlspecialchars($_POST['email']));
 			header('Location: /login');
 		}
 		$this->_view = new View('Register');

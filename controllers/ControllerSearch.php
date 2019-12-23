@@ -17,7 +17,7 @@ class ControllerSearch
 	private function search($url)
 	{
 		$this->_accountManager = new AccountManager;
-		if (is_array($ret = $this->_accountManager->searchAccount($url[1])))
+		if (is_array($ret = $this->_accountManager->searchAccount(htmlspecialchars($url[1]))))
 		{
 			$data = json_encode($ret);
 			echo $data;

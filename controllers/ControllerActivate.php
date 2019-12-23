@@ -17,7 +17,7 @@ class ControllerActivate
 	private function verify($url)
 	{
 		$this->_accountManager = new AccountManager;
-		$ret = $this->_accountManager->verifyAccount($url[1]);
+		$ret = $this->_accountManager->verifyAccount(htmlspecialchars($url[1]));
 		$this->_view = new View('Activate');
 		$this->_view->generate(array('return' => $ret));
 	}

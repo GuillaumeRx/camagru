@@ -15,7 +15,7 @@
 		</div>
 		<form method="POST" action="/account" class="form">
 		<span>
-			<label for="username">Nom d’utilisateur</label>	
+			<label for="username">Nom d’utilisateur</label>
 			<input type="text" placeholder="Ton nom d'utilisateur"  value="<?= $account->username() ?>" id="username" name="username"/>
 		</span>
 		<span>

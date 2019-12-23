@@ -21,7 +21,7 @@ class ControllerReset
 		{
 			if (isset($_POST['email']) && isset($_POST['password']))
 			{
-				$this->_accountManager->editPassword($_POST['email'], $_POST['password']);
+				$this->_accountManager->editPassword(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password']));
 				header('Location: /');
 			}
 			$this->_view = new View('Reset');

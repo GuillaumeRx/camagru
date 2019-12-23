@@ -1,10 +1,13 @@
 <div id="gallery">
 <div class="buttons">
-	<button id="prev" onclick="prevPage()">prev</button>
-	<button id="next" onclick="nextPage()">next</button>
+	<button id="prev" onclick="prevPage()"><i class="fas fa-chevron-left fa-lg"></i></button>
+	<p id="page-num"></p>
+	<button id="next" onclick="nextPage()"><i class="fas fa-chevron-right fa-lg"></i></button>
 </div>
 <?php $this->_t = 'Accueil';
 $j = 0;
+if (count($pictures) == 0)
+	echo("<p>Il n'y a pas de photos pour le moment</p>");
 foreach($pictures as $picture) {
 	if (++$j == 1)
 		echo("<div class='page'>");
@@ -76,6 +79,14 @@ foreach($pictures as $picture) {
 		echo("</div>");
 		$j = 0;
 	}
-}	
+}
+if ($j != 0)
+	echo("</div>");	
 ?>
+<div class="buttons">
+	<button id="prev" onclick="prevPage()"><i class="fas fa-chevron-left fa-lg"></i></button>
+	<p id="page-num2"></p>
+	<button id="next" onclick="nextPage()"><i class="fas fa-chevron-right fa-lg"></i></button>
+</div>
+<script src="/js/paginate.js"></script>
 </div>

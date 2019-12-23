@@ -1,5 +1,6 @@
 var constraints = { video:{width: 720, height: 720}, audio: false };
 var mouseDown = false;
+
 class Filter {
 	constructor(canvasWidth, canvasHeight, source) {
 		this.isSelected = false;
@@ -16,7 +17,6 @@ class Filter {
 
 	handleSelect() {
 		this.isSelected = this.isSelected == true ? false : true;
-		console.log(this.isSelected);
 	}
 
 	toJSON() {
@@ -40,22 +40,27 @@ const	cameraView = document.querySelector('#camera-view'),
 		filterSelector = document.querySelector('#filter-selector')
 		formPicture = document.querySelector('#picture');
 		formFilters = document.querySelector('#filters');
-		form = document.querySelector('#send-form')
+		form = document.querySelector('#send-form');
+
+var camera = -1;
 
 function cameraStart() {
 	navigator.mediaDevices.getUserMedia(constraints)
 	.then((stream) => {
 		track = stream.getTracks()[0];
 		cameraView.srcObject = stream;
+		camera = 1;
 	})
 	.catch((err) => {
-		console.error(`An error occured : ${err}`);
+		camera = -1;
 	})
 }
 
 function initFilters() {
 	filterScreen.width = constraints.video.width;
 	filterScreen.height = constraints.video.height;
+	cameraSensor.width = constraints.video.width;
+	cameraSensor.height = constraints.video.height;
 	
 }
 
@@ -96,7 +101,7 @@ var moveFilter = (e) => {
 				usedFilters[i].moveFilter(e.clientX - rect.left - (usedFilters[i].size.width / 2), usedFilters[i].pos.y = e.clientY - rect.top - (usedFilters[i].size.height / 2));
 				break;
 			}
-	}
+		}
 	}
 	let ctx = filterScreen.getContext('2d');
 	ctx.clearRect(0, 0, filterScreen.width, filterScreen.height);
@@ -113,15 +118,17 @@ function selectFilter(source)
 	usedFilters.push(filter);
 	let ctx = filterScreen.getContext('2d');
 	ctx.drawImage(filter.src, filter.pos.x, filter.pos.y, filter.size.width , filter.size.height);
-	if (usedFilters.length > 0)
+	if (usedFilters.length > 0 && camera != -1)
 		cameraBtn.style.display = 'block';
-
 }
 
 cameraBtn.onclick = (e) => {
-	cameraSensor.width = cameraView.videoWidth;
-	cameraSensor.height= cameraView.videoHeight;
-	cameraSensor.getContext('2d').drawImage(cameraView, 0, 0);
+	if (camera == 1)
+	{
+		cameraSensor.width = cameraView.videoWidth;
+		cameraSensor.height = cameraView.videoHeight;
+		cameraSensor.getContext('2d').drawImage(cameraView, 0, 0);
+	}	
 	formPicture.value = cameraSensor.toDataURL('image/png');
 	formFilters.value = filterScreen.toDataURL('image/png');
 	form.submit();
@@ -140,7 +147,22 @@ filterScreen.addEventListener('mouseup', (e) => {
 	mouseDown = false});
 filterScreen.addEventListener('mousemove', moveFilter, false);
 
+
+function draw() {
+	cameraSensor.width = 720;
+	cameraSensor.height= 720;
+	var ctx = cameraSensor.getContext('2d');
+	ctx.drawImage(this,0, 0, this.width, this.height, 0, 0, cameraSensor.width, cameraSensor.height);
+	camera = 0;
+  }
+
 window.onload = () => {
-	cameraStart();
+	if (navigator.mediaDevices)
+		cameraStart();
 	initFilters();
+	document.getElementById('img-select').onchange = function(e) {
+		var img = new Image();
+		img.onload = draw;
+		img.src = URL.createObjectURL(this.files[0]);
+	  };
 }

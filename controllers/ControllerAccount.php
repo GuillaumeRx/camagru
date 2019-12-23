@@ -23,14 +23,12 @@ class ControllerAccount
 		{
 			if (isset($_FILES['pic']))
 			{
-				$uploadfile = $uploaddir . basename($_FILES['pic']['name']);
-				if (!file_exists($uploadfile))
-				{
-					if (move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile))
-						$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
-				}
-				else
-				$account = $this->_accountManager->editPicture($account->id(), basename($_FILES['pic']['name']));
+				$token = substr(md5(mt_rand()),0,15);
+				
+				$path = $_FILES['pic']['name'];
+				$ext = pathinfo($path, PATHINFO_EXTENSION);
+				$uploadfile = move_uploaded_file($_FILES['pic']['tmp_name'], $uploaddir . "/" . $token . "." . $ext);
+				$account = $this->_accountManager->editPicture($account->id(), $token . "." . $ext);
 			}
 			else if (isset($_POST['password_reset']))
 			{
@@ -38,7 +36,7 @@ class ControllerAccount
 			}
 			else if (isset($_POST['username']) || isset($_POST['email']) ||isset($_POST['bio']) || isset($_POST['notification']))
 			{
-				$account = $this->_accountManager->editAccount($account->id(), $_POST['username'], $_POST['email'], $_POST['bio'], $_POST['notification']);
+				$account = $this->_accountManager->editAccount($account->id(), htmlspecialchars($_POST['username']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['bio']), htmlspecialchars($_POST['notification']));
 			}
 			$this->_view = new View('Account');
 			$this->_view->generate(array('account' => $account));

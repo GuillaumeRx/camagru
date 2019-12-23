@@ -23,11 +23,11 @@ class ControllerCamagru
 		{
 			if (isset($_POST['picture']) && isset($_POST['filters']))
 			{
-				$this->_pictureManager->processPhoto($_POST['picture'], $_POST['filters'], $user);
+				$this->_pictureManager->processPhoto(htmlspecialchars($_POST['picture']), htmlspecialchars($_POST['filters']), $user);
 			}
 			else if (isset($_POST['delete']))
 			{
-				$this->_pictureManager->deletePicture($_POST['delete']);
+				$this->_pictureManager->deletePicture(htmlpecialchar($_POST['delete']));
 			}
 			$pictures = $this->_pictureManager->getAccountPictures($user->id());
 			$this->_view = new View('Camagru');

@@ -23,7 +23,7 @@ class ControllerLogin
 		{
 			if (isset($_POST['email']) && isset($_POST['password']))
 			{
-				if ($account = $this->_accountManager->login($_POST['email'], $_POST['password']))
+				if ($account = $this->_accountManager->login(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])))
 				{
 					$this->_accountManager->RegisterLoginSession($account->id());
 					header('Location: /account');

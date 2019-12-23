@@ -18,7 +18,7 @@ class ControllerForgot
 	{
 		$this->_accountManager = new AccountManager;
 		if (isset($_POST['email']))
-			if ($this->_accountManager->callReset($_POST['email']))
+			if ($this->_accountManager->callReset(htmlspecialchars($_POST['email'])))
 				$success = true;
 		$this->_view = new View('Forgot');
 		$this->_view->generate(array('success' => $success));

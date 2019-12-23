@@ -7,6 +7,7 @@
 	<link rel="icon" type="image/png" href="../favicon.png" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 	<link href="../css/style.css" rel="stylesheet">
+	<link href="../css/responsive.css" rel="stylesheet">
 	<script type="text/javascript" src="../js/script.js"></script>
 	<title><?= $t ?></title>
 </head>
@@ -18,7 +19,7 @@
 				<div class="separator"></div>			
 				<a href="/">Camagru</a>
 			</div>
-			<div>
+			<div class="search-cont">
 				<div class="search">
 					<i class="fas fa-search fa-xs"></i>
 					<input id="search-box" type="text" placeholder="Rechercher" onkeyup="searchAccount()"/>

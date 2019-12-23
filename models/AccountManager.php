@@ -220,7 +220,7 @@ class AccountManager extends Model
 		
 		if (is_array($data))
 		{
-			if (password_verify($password, $data['password']))
+			if ((int)$data['active'] === 1 && password_verify($password, $data['password']))
 			{
 				return new Account($data);
 				$req->closeCursor();
@@ -390,6 +390,25 @@ class AccountManager extends Model
 			$req->closeCursor();
 	}
 
+	public function emailIsIn($email)
+	{
+		$values = array(':email' => $email);
+
+		try
+		{
+			$req = $this->getBdd()->prepare('SELECT * FROM password_reset WHERE (email = :email)');
+			$req->execute($values);
+		}
+		catch (PDOException $e)
+		{
+			throw new Exception('Query error');
+		}
+		$data = $req->fetch(PDO::FETCH_ASSOC);
+		if (is_array($data))
+			return true;
+		return false;
+	}
+
 	public function sendReset($email, $token)
 	{
 		$to = $email;
@@ -406,6 +425,8 @@ class AccountManager extends Model
 		$token = substr(md5(mt_rand()),0,15);
 
 		$values = array(':email' => $email, ':token' => $token);
+		if ($this->emailIsIn($email))
+			throw new Exception('Email already sent');
 		if (is_null($this->getIdFromEmail($email)))
 			throw new Exception('Invalid email');
 		try
