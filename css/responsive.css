@@ -67,9 +67,6 @@
 		flex-direction: column;
 	}
 
-	#camagru .camera-box {
-		width: 100%;
-	}
 
 	#camagru .camera {
 		width: 100%;
@@ -97,5 +94,12 @@
 
 	#camagru #user-pic {
 		width: 84%;
+	}
+}
+
+@media screen and (max-width: 1055px) {
+	#camagru {
+		flex-direction: column;
+		align-items: center;
 	}
 }

@@ -112,6 +112,15 @@ var moveFilter = (e) => {
 	}
 }
 
+function clearFilters()
+{
+	usedFilters = [];
+	cameraBtn.style.display = 'none';
+	let ctx = filterScreen.getContext('2d');
+	ctx.clearRect(0, 0, filterScreen.width, filterScreen.height);
+
+}
+
 function selectFilter(source)
 {
 	var filter = new Filter(filterScreen.width, filterScreen.height, source);
@@ -161,8 +170,11 @@ window.onload = () => {
 		cameraStart();
 	initFilters();
 	document.getElementById('img-select').onchange = function(e) {
+		cameraView.style.visibility = 'hidden';
 		var img = new Image();
 		img.onload = draw;
 		img.src = URL.createObjectURL(this.files[0]);
 	  };
 }
+
+window.onresize = () => initFilters();

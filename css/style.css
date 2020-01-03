@@ -899,7 +899,7 @@ button:active
 
 #camagru .camera-box
 {
-	width: 60%;
+	width: 800px;
 }
 
 #camagru #user-pic 
@@ -987,11 +987,6 @@ button:active
 {
 	background-color: tomato;
 	transition: all .3s;
-}
-
-#camagru .camera {
-	width: 100%;
-	height: auto;
 }
 
 #camagru #camera-sensor, #filter-screen

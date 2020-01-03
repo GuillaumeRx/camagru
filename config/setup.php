@@ -32,7 +32,7 @@ $setup = new Setup;
 
 try
 {
-$setup->getBdd()->exec($sql);
+	$setup->getBdd()->exec($sql);
 }
 catch (PDOException $e)
 {

@@ -27,7 +27,7 @@ class ControllerCamagru
 			}
 			else if (isset($_POST['delete']))
 			{
-				$this->_pictureManager->deletePicture(htmlpecialchar($_POST['delete']));
+				$this->_pictureManager->deletePicture(htmlspecialchars($_POST['delete']));
 			}
 			$pictures = $this->_pictureManager->getAccountPictures($user->id());
 			$this->_view = new View('Camagru');
